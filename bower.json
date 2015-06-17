@@ -1,0 +1,23 @@
+{
+  "name": "chreytli.spa",
+  "version": "0.0.0",
+  "authors": [
+    "Michael <michael.buholzer@outlook.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "bootstrap": "~3.3.5",
+    "fontawesome": "~4.3.0"
+  }
+}

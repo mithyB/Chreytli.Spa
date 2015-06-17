@@ -1,0 +1,21 @@
+﻿.brand-name {
+    color: white;
+}
+
+.header-image {
+    background-image: url('http://www.the-walls.net/wp-content/uploads/2013/03/Green-Minimalistic-Pattern.jpg');
+    height: 200px;
+    width: 100%;
+    margin-top: -20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+/* BOOTSTRAP CUSTOMIZATIONS */
+
+.navbar-brand {
+    font-family: "Righteous";
+    font-size: 36px;
+}
