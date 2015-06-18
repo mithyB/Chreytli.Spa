@@ -9,23 +9,24 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#/">
-                    <span class="brand-name">Chreytli</span> Gaming
+                    <span class="brand-name">Chreytli</span> <span ng-style="vm.route.style">{{vm.route.title}}</span>
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{active:vm.isActive('/')}"><a href="#/">Home</a></li>
+                    <li ng-class="{active:vm.isActive(route.route)}" ng-repeat="route in vm.routes|filter:{showNav:true}"><a ng-href="#{{route.route}}">{{route.title}}</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search" action="https://www.google.ch/search">
-                    <div class="form-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search on Google">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="" data-toggle="modal" data-target="#registerModal"><i class="fa fa-pencil-square-o"></i> Register</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i> Login</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 </div>
 
 <div class="container header-image hidden-xs"></div>
+
+<div ng-include="src='templates/dialogs/loginDialog.html'"></div>
+<div ng-include="src='templates/dialogs/registerDialog.html'"></div>
