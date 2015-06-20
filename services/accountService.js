@@ -26,7 +26,7 @@
                 this.setAccount();
             },
             onAccountLoaded: function (action) {
-                if (accountSet) {
+                if (accountSet || account) {
                     action(account);
                     accountSet = false;
                 } else {

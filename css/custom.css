@@ -3,13 +3,13 @@
 }
 
 .header-image {
-    background-image: url('http://www.the-walls.net/wp-content/uploads/2013/03/Green-Minimalistic-Pattern.jpg');
+    background-image: url('http://hdwallsize.com/wp-content/uploads/2013/05/Download-Green-Background-Flowers-Wallpaper-Dekstop.jpg');
     height: 200px;
     width: 100%;
     margin-top: -20px;
     margin-bottom: 20px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
 }
 

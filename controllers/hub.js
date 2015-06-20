@@ -93,6 +93,10 @@
 
             var media;
 
+            $('#mediaModal').on('hidden.bs.modal', function () {
+                content.empty();
+            });
+
             switch (post.type) {
                 case SubmissionTypes.image:
                     content.append($('<img>', {
