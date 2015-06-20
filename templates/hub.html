@@ -1,25 +1,32 @@
 ﻿<div class="row">
-    <div ng-repeat="post in vm.posts" class="col-md-3 col-sm-4 col-xs-6 media-element">
+    <div class="col-md-12">
+        <button class="btn btn-primary" data-target="#submitModal" data-toggle="modal" ng-show="vm.isLoggedIn()">
+            <i class="fa fa-upload"></i> Submit
+        </button>
+    </div>
+
+    <div ng-repeat="submission in vm.submissions" class="col-md-3 col-sm-4 col-xs-6 media-element">
         <div class="media-element-body">
             <div class="media-element-thumbnail">
-                <img ng-src="{{post.img}}" alt="{{post.type}}" ng-class="{'portrait':post.isPortrait}">
-                <i class="fa enlarge" ng-class="vm.getEnlargementIcon(post)" ng-click="vm.enlarge(post)"></i>
+                <img ng-src="{{submission.img}}" alt="{{submission.type}}" ng-class="{'portrait':submission.isPortrait}">
+                <i class="fa enlarge" ng-class="vm.getEnlargementIcon(submission)" ng-click="vm.enlarge(submission)"></i>
             </div>
-            <span class="media-element-badge" ng-style="vm.getBadgeStyle(post)">
-                <i class="fa" ng-class="vm.getBadge(post)"></i>
+            <span class="media-element-badge" ng-style="vm.getBadgeStyle(submission)">
+                <i class="fa" ng-class="vm.getBadge(submission)"></i>
             </span>
             <hr>
-            <div><i class="fa fa-user"></i> {{post.author.userName}}</div>
-            <div><i class="fa fa-clock-o"></i> {{post.date.fromNow()}}</div>
+            <div><i class="fa fa-user"></i> {{submission.author.userName}}</div>
+            <div><i class="fa fa-clock-o"></i> {{submission.date.fromNow()}}</div>
             <div>
-                <a href="" class="favorite-star" ng-click="vm.favorite(post)" tabindex="-1">
-                    {{post.score}}
-                    <i class="fa fa-star" ng-class="{'favorite':post.isFavorite}"></i>
+                <a href="" class="favorite-star" ng-click="vm.favorite(submission)" tabindex="-1">
+                    {{submission.score}}
+                    <i class="fa fa-star" ng-class="{'favorite':submission.isFavorite}"></i>
                 </a>
             </div>
-            <a href="" ng-click="vm.delete(post)">Delete</a>
+            <a ng-show="vm.isInRole('Admins')" href="" ng-click="vm.delete(submission)">Delete</a>
         </div>
     </div>
 </div>
 
 <div ng-include="src='templates/dialogs/mediaDialog.html'"></div>
+<div ng-include="src='templates/dialogs/submitDialog.html'"></div>

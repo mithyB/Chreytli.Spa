@@ -5,6 +5,7 @@
 
     var app = ng.module(moduleId, [
         'ngRoute',
+        'ngResource',
         module
     ]);
 

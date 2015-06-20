@@ -19,6 +19,7 @@
     "angular-route": "~1.4.1",
     "bootstrap": "~3.3.5",
     "fontawesome": "~4.3.0",
-    "moment": "~2.10.3"
+    "moment": "~2.10.3",
+    "angular-resource": "~1.4.1"
   }
 }

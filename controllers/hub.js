@@ -2,11 +2,14 @@
     'use strict';
 
     ng.module(moduleId).controller(controllerId, [
-        '$scope',
+        '$resource',
+        '$filter',
+        'globalConfig',
+        'accountService',
         controller
     ]);
 
-    function controller($scope) {
+    function controller($resource, $filter, globalConfig, accountService) {
         var vm = this;
 
         var SubmissionTypes = {
@@ -15,79 +18,72 @@
             spotify: 2
         };
 
-        vm.posts = [
-            {
-                img: 'https://pbs.twimg.com/media/CHzTMBGWUAAqY-F.jpg',
-                author: {
-                    userName: 'mithyB'
-                },
-                date: moment(),
-                score: 1337,
-                type: SubmissionTypes.image
+        var submissionTypeSettings = {
+            0: {
+                enlargementIcon: 'fa-search',
+                badgeIcon: 'fa-picture-o',
+                style: { background: 'deepskyblue', color: 'white' }
             },
-            {
-                img: 'https://pbs.twimg.com/media/CHzOX41WEAAMQnS.png',
-                author: {
-                    userName: 'mithyB'
-                },
-                date: moment().add(-4, 'm'),
-                score: 1337,
-                type: SubmissionTypes.image
+            1: {
+                enlargementIcon: 'fa-youtube-play',
+                badgeIcon: 'fa-youtube-play',
+                style: { background: 'red', color: 'white' }
             },
-            {
-                img: 'https://pbs.twimg.com/media/CHvmu1kVAAEHlA8.jpg',
-                author: {
-                    userName: 'mithyB'
-                },
-                date: moment().add(-32, 'm'),
-                score: 1337,
-                type: SubmissionTypes.image
-            },
-            {
-                img: 'https://pbs.twimg.com/media/CHzNX78WoAAuE7c.jpg',
-                author: {
-                    userName: 'mithyB'
-                },
-                date: moment().add(-2, 'h'),
-                score: 1337,
-                type: SubmissionTypes.image
-            },
-            {
-                img: 'https://pbs.twimg.com/media/CHzMyr0UkAAYa3o.jpg',
-                author: {
-                    userName: 'mithyB'
-                },
-                date: moment().add(-1, 'd'),
-                score: 1337,
-                type: SubmissionTypes.image
-            }
-        ];
-
-        vm.getEnlargementIcon = function (post) {
-            switch (post.type) {
-                case SubmissionTypes.image:
-                    return 'fa-search';
-                case SubmissionTypes.youtube:
-                    return 'fa-youtube-play';
+            2: {
+                enlargementIcon: 'fa-play',
+                badgeIcon: 'fa-spotify',
+                style: { background: 'limegreen', color: 'white' }
             }
         };
 
-        vm.getBadge = function (post) {
-            switch (post.type) {
-                case SubmissionTypes.image:
-                    return 'fa-picture-o';
-                case SubmissionTypes.youtube:
-                    return 'fa-youtube-play';
+        var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
+            'query': { method: 'GET', isArray: true },
+            'create': { method: 'POST', headers: { authorization: localStorage.getItem('access_token') } },
+            //'update': { method: 'PUT', headers: { authorization: localStorage.getItem('access_token') } },
+            'delete': { method: 'DELETE', params: { id: '@id' }, headers: { authorization: localStorage.getItem('access_token') } },
+            'favorite': {
+                method: 'POST', url: globalConfig.apiUrl + 'Submissions/:id/Favorite', params: { id: '@id' },
+                headers: { authorization: localStorage.getItem('access_token') }
             }
+        });
+
+        accountService.onAccountLoaded(function (account) {
+            var accountId = account ? account.id : '';
+            Submission.query({ userId: accountId }).$promise.then(function (result) {
+                ng.forEach(result, function (x) {
+                    x.date = moment(moment.utc(x.date).toDate()); // utc to local
+                });
+                vm.submissions = result;
+            }, function (error) {
+                console.error(error);
+            });
+        });
+
+        vm.newSubmission = {
+            type: 'image'
         };
 
-        vm.getBadgeStyle = function (post) {
-            switch (post.type) {
-                case SubmissionTypes.image:
-                    return { background: 'deepskyblue', color: 'white' };
-                case SubmissionTypes.youtube:
-                    return { background: 'red', color: 'white' };
+        vm.isLoggedIn = function () {
+            return (accountService.getAccount());
+        };
+
+        vm.isInRole = function (role) {
+            var acc = accountService.getAccount();
+            if (acc && acc.roles) {
+                return acc.roles.indexOf(role) > -1;
             }
+        }
+
+        vm.getEnlargementIcon = function (submission) {
+            return submissionTypeSettings[submission.type].enlargementIcon;
+        };
+
+        vm.getBadge = function (submission) {
+            return submissionTypeSettings[submission.type].badgeIcon;
+        };
+
+        vm.getBadgeStyle = function (submission) {
+            return submissionTypeSettings[submission.type].style;
         };
 
         vm.enlarge = function (post) {
@@ -106,6 +102,7 @@
                     }));
                     break;
                 case SubmissionTypes.youtube:
+                    //<iframe src='http://www.youtube.com/embed/QILiHiTD3uc' frameborder='0' allowfullscreen></iframe>
                     content.append($('<iframe>', {
                         id: 'mediaModal-video',
                         src: post.url,
@@ -117,17 +114,17 @@
                     break;
             }
 
-            //<iframe src='http://www.youtube.com/embed/QILiHiTD3uc' frameborder='0' allowfullscreen></iframe>
 
             modal.modal('show');
         };
 
-        vm.favorite = function (post) {
-            post.isFavorite = !post.isFavorite;
-            post.score += post.isFavorite ? 1 : -1;
+        vm.favorite = function (submission) {
+            submission.isFavorite = !submission.isFavorite;
+            submission.score += submission.isFavorite ? 1 : -1;
 
-            var p = new Post(post);
-            p.$update({ id: post.id }).then(success, failed);
+            var account = accountService.getAccount();
+            var s = new Submission(submission);
+            s.$favorite({ userId: account.id }).then(success, failed);
 
             function success(result) {
 
@@ -137,6 +134,65 @@
                 console.error(error);
             }
         };
+
+        vm.delete = function (submission) {
+            var s = new Submission(submission);
+            s.$delete().then(success, failed);
+
+            function success(result) {
+                vm.submissions = $filter('filter')(vm.submissions, { id: '!' + result.id });
+            }
+
+            function failed(error) {
+                console.error(error);
+            }
+        };
+
+        vm.submit = function () {
+            var account = accountService.getAccount();            
+            var submission = getNewSubmission();
+            submission.authorId = account.id;
+
+            var s = new Submission(submission);
+            s.$create().then(success, failed);
+
+            function success(result) {
+                result.author = {
+                    userName: account.username
+                };
+                result.date = moment(result.date);
+                vm.submissions.push(result);
+            }
+
+            function failed(error) {
+                console.error(error);
+            }
+        };
+
+        function getNewSubmission() {
+            var youtubeRegex = /https?:\/\/(?:www\.)?youtube.com\/watch\?.*v=([A-Za-z0-9]+)/;
+
+            var submission = {
+                date: moment(),
+                score: 0,
+                type: SubmissionTypes[vm.newSubmission.type]
+            };
+
+            switch (submission.type) {
+                case SubmissionTypes.image:
+                    submission.img = vm.newSubmission.url;
+                    break;
+                case SubmissionTypes.youtube:
+                    var vid = youtubeRegex.exec(vm.newSubmission.url)[1];
+                    submission.url = 'http://www.youtube.com/embed/' + vid;
+                    submission.img = 'http://img.youtube.com/vi/' + vid + '/0.jpg';
+                    break;
+                case SubmissionTypes.spotify:
+                    break;
+            }
+
+            return submission;
+        }
     }
 
 })(appName, 'hub', angular);
