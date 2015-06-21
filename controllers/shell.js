@@ -53,10 +53,10 @@
                 $('#registerModal').modal('hide');
             }).error(function (error, message) {
                 vm.registerError = 'An error occured';
-                if (e) {
-                    var errors = e.modelState;
-                    for (var error in errors) {
-                        vm.registerError = errors[error][0];
+                if (error) {
+                    var errors = error.modelState;
+                    for (var e in errors) {
+                        vm.registerError = errors[e][0];
                         break;
                     }
                 }
