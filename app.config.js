@@ -2,8 +2,8 @@
     'use strict';
 
     var value = {
-        apiUrl: 'http://localhost:53994/api/',
-        tokenUrl: 'http://localhost:53994/token'
+        apiUrl: 'http://chreytli.noip.me/Chreytli.Api/api/',
+        tokenUrl: 'http://chreytli.noip.me/Chreytli.Api/token'
     };
 
     ng.module(moduleId).value(valueId, value);
