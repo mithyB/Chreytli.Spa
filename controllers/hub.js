@@ -17,7 +17,7 @@
         globalConfig, accountService, submissionTypeService, jQHubService) {
         var vm = this;
 
-        var pageSize = 4;
+        var pageSize = 24;
 
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
             'query': { method: 'GET', isArray: true },
