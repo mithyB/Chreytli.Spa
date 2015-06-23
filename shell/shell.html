@@ -2,7 +2,39 @@
     <header ng-include="src='shell/header.html'"></header>
 
     <div class="container">
-        <div ng-view></div>
+        <div class="row">
+            <div class="col-md-9">
+                <div ng-view></div>
+            </div>
+
+            <div class="col-md-3">
+                <b>Top scores</b>
+                <div ng-repeat="topUser in vm.topUsers">
+                    {{$index+1}}. {{topUser.userName}} (Score: {{topUser.totalScore}})
+                </div>
+
+                <hr>
+
+                <b>Recent registrations</b>
+                <div ng-repeat="registration in vm.registrations">
+                    {{registration.userName}} - {{registration.createDate.fromNow()}}
+                </div>
+            </div>
+        </div>
+
+        <div class="full-content-overlay" ng-show="vm.loading">
+            <div class="loading">
+                <i class="fa fa-spin fa-circle-o-notch"></i> Loading...
+            </div>
+        </div>
+
+        <div class="full-content-overlay" ng-show="vm.serverUnreachable">
+            <div class="error">
+                <h1>420 - Server unreachable</h1>
+                Try again later...
+            </div>
+        </div>
+
     </div>
 
     <footer ng-include="src='shell/footer.html'"></footer>

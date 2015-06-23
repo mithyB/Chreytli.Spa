@@ -1,9 +1,17 @@
 ﻿(function (moduleId, valueId, ng) {
     'use strict';
+    
+    //var baseUrl = 'http://chreytli.noip.me/Chreytli.Api/';
+    var baseUrl = 'http://localhost:53994/';
+    var apiUrl = baseUrl + 'api/';
+    var tokenUrl = baseUrl + 'token';
+    var metaUrl = apiUrl + 'Meta/';
 
     var value = {
-        apiUrl: 'http://chreytli.noip.me/Chreytli.Api/api/',
-        tokenUrl: 'http://chreytli.noip.me/Chreytli.Api/token'
+        baseUrl: baseUrl,
+        apiUrl: apiUrl,
+        tokenUrl: tokenUrl,
+        metaUrl: metaUrl
     };
 
     ng.module(moduleId).value(valueId, value);

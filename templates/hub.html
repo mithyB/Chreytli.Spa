@@ -1,20 +1,20 @@
 ﻿<div class="row">
     <div class="col-md-12">
         <button class="btn btn-primary" data-target="#submitModal" data-toggle="modal" ng-show="vm.isLoggedIn()">
-            <i class="fa fa-upload"></i> Submit
+            <i class="fa fa-arrow-circle-up"></i> Submit
         </button>
     </div>
 
-    <div ng-repeat="submission in vm.submissions" class="col-md-3 col-sm-4 col-xs-6 media-element">
+    <div ng-repeat="submission in vm.submissions" class="col-md-3 col-sm-4 col-xs-6 media-element" id="{{submission.id}}">
+        <div class="media-element-thumbnail">
+            <div class="image" ng-style="{'background-image': 'url(' + submission.img + ')'}"></div>
+            <i class="fa enlarge" ng-class="vm.getTypeSetting(submission.type, 'enlargementIcon')" ng-click="vm.enlarge(submission)"></i>
+        </div>
+        <span class="media-element-badge" ng-style="vm.getTypeSetting(submission.type, 'style')">
+            <i class="fa" ng-class="vm.getTypeSetting(submission.type, 'badgeIcon')"></i> {{vm.getTypeSetting(submission.type, 'title')}}
+        </span>
+
         <div class="media-element-body">
-            <div class="media-element-thumbnail">
-                <img ng-src="{{submission.img}}" alt="{{submission.type}}" ng-class="{'portrait':submission.isPortrait}">
-                <i class="fa enlarge" ng-class="vm.getEnlargementIcon(submission)" ng-click="vm.enlarge(submission)"></i>
-            </div>
-            <span class="media-element-badge" ng-style="vm.getBadgeStyle(submission)">
-                <i class="fa" ng-class="vm.getBadge(submission)"></i>
-            </span>
-            <hr>
             <div><i class="fa fa-user"></i> {{submission.author.userName}}</div>
             <div><i class="fa fa-clock-o"></i> {{submission.date.fromNow()}}</div>
             <div>
@@ -23,8 +23,17 @@
                     <i class="fa fa-star" ng-class="{'favorite':submission.isFavorite}"></i>
                 </a>
             </div>
-            <a ng-show="vm.isInRole('Admins')" href="" ng-click="vm.delete(submission)">Delete</a>
+            <a class="media-element-delete" ng-show="vm.canDelete(submission)" href="" ng-click="vm.delete(submission)">
+                <i class="fa fa-times"></i>
+            </a>
         </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"
+            class="load-more-bar col-md-12 col-sm-12 col-xs-12">
+            Load more...
+        </a>
     </div>
 </div>
 

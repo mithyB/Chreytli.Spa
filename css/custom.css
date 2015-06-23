@@ -1,4 +1,35 @@
-﻿.brand-name {
+﻿.full-content-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    color: white;
+}
+.full-content-overlay > .error {
+    padding: 10px;
+}
+.full-content-overlay > .loading {
+    width: 100%;
+    text-align: center;
+    font-size: 48px;
+    position: absolute;
+    top: 40%;
+}
+
+.load-more-bar {
+    width: 100%;
+    background: #555;
+    text-align: center;
+    color: #eee;
+    padding: 4px;
+}
+.load-more-bar:hover {
+    color: #fff;
+}
+
+.brand-name {
     color: white;
 }
 
@@ -14,12 +45,12 @@
 }
 
 .media-element {
-    padding: 16px;
-    height: 350px;
+    border: 0px solid #fff;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .media-element > .media-element-body {
-    border: 1px solid #eee;
     padding: 10px;
 }
 
@@ -52,6 +83,8 @@
 }
 
 .media-element-thumbnail > .enlarge {
+    position: absolute;
+    top: 0;
     opacity: 0;
     height:100%;
     width:100%;
@@ -84,8 +117,22 @@
     height: auto;
 }
 
+.media-element-delete {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    font-size: 16px;
+    color: rgba(0,0,0,0.4);
+}
+
+.media-element-delete:hover {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+
 #mediaModal .modal-content {
-    background-color: rgba(0,0,0,0.5);
+    background: black;
+    padding: 5px;
 }
 
 #mediaModal-image {
@@ -95,18 +142,29 @@
 
 .favorite-star {
     position: absolute;
-    right: 24px;
+    right: 14px;
     font-size: 24px;
-    bottom: 24px;
-    color: #ccc;
+    bottom: 4px;
+    color: #bbb;
+    text-decoration: none;
 }
 
 .favorite-star:hover {
-    color: #aaa;
+    color: #888;
 }
 
 .favorite-star > .favorite {
     color: gold;
+}
+
+.media-element-thumbnail > .image {
+    display: inline-block;
+    border: 1px solid #CCCCCC;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
 }
 
 
@@ -115,4 +173,8 @@
 .navbar-brand, h1, h2, h3 {
     font-family: "Righteous";
     font-size: 36px;
+}
+
+.navbar-brand {
+    width: 300px;
 }

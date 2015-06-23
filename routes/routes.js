@@ -7,6 +7,7 @@
             config: {
                 controller: 'hub as vm',
                 templateUrl: 'templates/hub.html',
+                reloadOnSearch: false,
                 settings: {
                     title: 'Hub',
                     style: {

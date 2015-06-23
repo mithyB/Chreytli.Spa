@@ -6,18 +6,21 @@
         '$route',
         '$scope',
         '$http',
+        '$filter',
         'globalConfig',
         'accountService',
         controller
     ]);
 
-    function controller($location, $route, $scope, $http, globalConfig, accountService) {
+    function controller($location, $route, $scope, $http, $filter, globalConfig, accountService) {
         var vm = this;
 
         vm.isActive = function(route) {
             return route === $location.path();
         };
 
+        vm.serverUnreachable = false;
+        vm.loading = true;
         vm.route = $route.current.settings;
         vm.routes = [];
         ng.forEach($route.routes, function (config, route) {
@@ -108,8 +111,26 @@
                 accountService.setAccount(vm.account);
             }).error(function (error, message) {
                 console.error(message);
+                vm.logout();
             });
         }
+
+        $http.get(globalConfig.metaUrl + 'TopScore').success(function (result) {
+            vm.topUsers = result;
+        }).then(function () {
+            vm.loading = false;
+        }, function (error) {
+            vm.loading = false;
+            vm.serverUnreachable = true;
+        });
+
+        $http.get(globalConfig.metaUrl + 'RecentRegistrations').success(function (result) {
+            result = $filter('filter')(result, { createDate: '!!' });
+            ng.forEach(result, function (x) {
+                x.createDate = moment(x.createDate);
+            });
+            vm.registrations = result;
+        });
     }
 
 })(appName, 'shell', angular);

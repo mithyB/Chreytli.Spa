@@ -4,37 +4,20 @@
     ng.module(moduleId).controller(controllerId, [
         '$resource',
         '$filter',
+        '$location',
+        '$scope',
         'globalConfig',
         'accountService',
+        'submissionTypeService',
+        'jQHubService',
         controller
     ]);
 
-    function controller($resource, $filter, globalConfig, accountService) {
+    function controller($resource, $filter, $location, $scope,
+        globalConfig, accountService, submissionTypeService, jQHubService) {
         var vm = this;
 
-        var SubmissionTypes = {
-            image: 0,
-            youtube: 1,
-            spotify: 2
-        };
-
-        var submissionTypeSettings = {
-            0: {
-                enlargementIcon: 'fa-search',
-                badgeIcon: 'fa-picture-o',
-                style: { background: 'deepskyblue', color: 'white' }
-            },
-            1: {
-                enlargementIcon: 'fa-youtube-play',
-                badgeIcon: 'fa-youtube-play',
-                style: { background: 'red', color: 'white' }
-            },
-            2: {
-                enlargementIcon: 'fa-play',
-                badgeIcon: 'fa-spotify',
-                style: { background: 'limegreen', color: 'white' }
-            }
-        };
+        var pageSize = 4;
 
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
             'query': { method: 'GET', isArray: true },
@@ -49,16 +32,57 @@
 
         accountService.onAccountLoaded(function (account) {
             var accountId = account ? account.id : '';
-            Submission.query({ userId: accountId }).$promise.then(function (result) {
-                ng.forEach(result, function (x) {
-                    x.date = moment(moment.utc(x.date).toDate()); // utc to local
-                });
-                vm.submissions = result;
+            Submission.query({ userId: accountId, page: vm.page }).$promise.then(function (result) {
+                loadData(result);
+
+                var search = $location.search();
+                if (search.s) {
+                    loadUntilSubmissionIsFound(result, parseInt(search.s), function (submission) {
+                        enlarge(submission);
+                    });
+                }
+
             }, function (error) {
                 console.error(error);
             });
         });
 
+        vm.loadMore = function (dataLoaded) {
+            vm.page++;
+            var account = accountService.getAccount();
+            var accountId = account ? account.id : '';
+
+            Submission.query({ userId: accountId, page: vm.page }).$promise.then(function (result) {
+                loadData(result);
+
+                if (dataLoaded) dataLoaded(result);
+
+            }, function (error) {
+                console.error(error);
+            });
+        }
+
+        function loadData(result) {
+            vm.isMoreDataAvailable = result.length == pageSize;
+            ng.forEach(result, function (x) {
+                x.date = moment(moment.utc(x.date).toDate()); // utc to local
+                vm.submissions.push(x);
+            })
+        }
+
+        function loadUntilSubmissionIsFound(submissions, submissionId, finished) {
+            var submission = $filter('filter')(submissions, { id: submissionId }, true)[0];
+            if (submission) {
+                if (finished) finished(submission);
+            } else {
+                vm.loadMore(function (result) {
+                    loadUntilSubmissionIsFound(result, submissionId, finished);
+                })
+            }
+        }
+
+        vm.submissions = [];
+        vm.page = 0;
         vm.newSubmission = {
             type: 'image'
         };
@@ -74,68 +98,50 @@
             }
         }
 
-        vm.getEnlargementIcon = function (submission) {
-            return submissionTypeSettings[submission.type].enlargementIcon;
+        vm.canDelete = function (submission) {
+            var account = accountService.getAccount();
+            return vm.isInRole('Admins') || account && submission.authorId == account.id;
         };
 
-        vm.getBadge = function (submission) {
-            return submissionTypeSettings[submission.type].badgeIcon;
+        vm.getTypeSetting = function (type, setting) {
+            return submissionTypeService.getSetting(type, setting);
         };
 
-        vm.getBadgeStyle = function (submission) {
-            return submissionTypeSettings[submission.type].style;
-        };
-
-        vm.enlarge = function (post) {
+        function enlarge(submission) {
             var modal = $('#mediaModal');
             var content = modal.find('.modal-content');
-            content.empty();
-
             var media;
 
-            $('#mediaModal').on('hidden.bs.modal', function () {
-                content.empty();
-            });
-
-            switch (post.type) {
-                case SubmissionTypes.image:
-                    content.append($('<img>', {
-                        id: 'mediaModal-image',
-                        src: post.img,
-                        class: 'img-responsive'
-                    }));
-                    break;
-                case SubmissionTypes.youtube:
-                    //<iframe src='http://www.youtube.com/embed/QILiHiTD3uc' frameborder='0' allowfullscreen></iframe>
-                    content.append($('<iframe>', {
-                        id: 'mediaModal-video',
-                        src: post.url,
-                        frameborder: 0,
-                        allowfullscreen: true,
-                        width: '100%',
-                        height: '320px'
-                    }));
-                    break;
-            }
-
+            modal.data('post-id', submission.id);
+            content.empty();
+            content.append(submissionTypeService.getMediaElement(submission));
 
             modal.modal('show');
+        }
+
+        vm.enlarge = function (submission) {
+            $location.search({ s: submission.id })
+            enlarge(submission);
         };
 
-        vm.favorite = function (submission) {
-            submission.isFavorite = !submission.isFavorite;
-            submission.score += submission.isFavorite ? 1 : -1;
-
+        vm.favorite = function (submission) {            
             var account = accountService.getAccount();
-            var s = new Submission(submission);
-            s.$favorite({ userId: account.id }).then(success, failed);
+            if (account) {
+                submission.isFavorite = !submission.isFavorite;
+                submission.score += submission.isFavorite ? 1 : -1;
 
-            function success(result) {
+                var s = new Submission(submission);
+                s.$favorite({ userId: account.id }).then(success, failed);
 
-            }
+                function success(result) {
 
-            function failed(error) {
-                console.error(error);
+                }
+
+                function failed(error) {
+                    console.error(error);
+                }
+            } else {
+                alert('You are not logged in. Please log in or register if you haven\'t already.')
             }
         };
 
@@ -157,6 +163,8 @@
             var submission = getNewSubmission();
             submission.authorId = account.id;
 
+            submission = submissionTypeService.initialize(submission, vm.newSubmission.url);
+
             var s = new Submission(submission);
             s.$create().then(success, failed);
 
@@ -165,7 +173,8 @@
                     userName: account.username
                 };
                 result.date = moment(result.date);
-                vm.submissions.push(result);
+                vm.submissions.splice(0, 0, result);
+                $('#submitModal').modal('hide');
             }
 
             function failed(error) {
@@ -174,29 +183,16 @@
         };
 
         function getNewSubmission() {
-            var youtubeRegex = /https?:\/\/(?:www\.)?youtube.com\/watch\?.*v=([A-Za-z0-9]+)/;
-
             var submission = {
                 date: moment(),
                 score: 0,
-                type: SubmissionTypes[vm.newSubmission.type]
+                type: submissionTypeService.SubmissionTypes[vm.newSubmission.type]
             };
-
-            switch (submission.type) {
-                case SubmissionTypes.image:
-                    submission.img = vm.newSubmission.url;
-                    break;
-                case SubmissionTypes.youtube:
-                    var vid = youtubeRegex.exec(vm.newSubmission.url)[1];
-                    submission.url = 'http://www.youtube.com/embed/' + vid;
-                    submission.img = 'http://img.youtube.com/vi/' + vid + '/0.jpg';
-                    break;
-                case SubmissionTypes.spotify:
-                    break;
-            }
 
             return submission;
         }
+
+        jQHubService.initialize($filter, $location, $scope, vm);
     }
 
 })(appName, 'hub', angular);
