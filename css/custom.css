@@ -25,7 +25,8 @@
     color: #eee;
     padding: 4px;
 }
-.load-more-bar:hover {
+.load-more-bar:hover,
+.load-more-bar:active {
     color: #fff;
 }
 

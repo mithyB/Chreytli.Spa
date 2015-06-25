@@ -23,12 +23,11 @@
                 }
             },
             resetAccount: function () {
-                this.setAccount();
+                accountSet = false;
             },
             onAccountLoaded: function (action) {
-                if (accountSet || account) {
+                if (accountSet) {
                     action(account);
-                    accountSet = false;
                 } else {
                     accountLoaded = action;
                 }

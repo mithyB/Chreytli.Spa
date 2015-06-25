@@ -17,7 +17,7 @@
                     var modal = $('#mediaModal');
                     var isModalOpen = (modal.data('bs.modal') || {}).isShown;
 
-                    var currentSubmission = $filter('filter')(vm.submissions, { id: modal.data('post-id') })[0];
+                    var currentSubmission = $filter('filter')(vm.submissions, { id: modal.data('post-id') }, true)[0];
 
                     if (isModalOpen) {
                         var index = 0;

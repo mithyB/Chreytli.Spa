@@ -39,7 +39,7 @@
         if (access_token) {
             getUserInfo(access_token);
         } else {
-            accountService.resetAccount();
+            accountService.setAccount();
         }
 
         vm.register = function () {
@@ -97,10 +97,12 @@
             localStorage.removeItem('access_token');
             delete vm.account;
             accountService.resetAccount();
+            accountService.setAccount();
             $route.reload();
         };
 
         function getUserInfo(token) {
+            accountService.resetAccount();
             var access_token = token || localStorage.getItem('access_token');
             $http.get(globalConfig.apiUrl + 'Account/UserInfo', {
                 headers: {

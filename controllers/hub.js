@@ -112,6 +112,10 @@
             var content = modal.find('.modal-content');
             var media;
 
+            $('#mediaModal').on('hidden.bs.modal', function () {
+                content.empty();
+            });
+
             modal.data('post-id', submission.id);
             content.empty();
             content.append(submissionTypeService.getMediaElement(submission));
@@ -124,7 +128,15 @@
             enlarge(submission);
         };
 
-        vm.favorite = function (submission) {            
+        vm.favorite = function (submission) {
+            function success(result) {
+
+            }
+
+            function failed(error) {
+                console.error(error);
+            }
+
             var account = accountService.getAccount();
             if (account) {
                 submission.isFavorite = !submission.isFavorite;
@@ -132,14 +144,6 @@
 
                 var s = new Submission(submission);
                 s.$favorite({ userId: account.id }).then(success, failed);
-
-                function success(result) {
-
-                }
-
-                function failed(error) {
-                    console.error(error);
-                }
             } else {
                 alert('You are not logged in. Please log in or register if you haven\'t already.')
             }
@@ -150,7 +154,7 @@
             s.$delete().then(success, failed);
 
             function success(result) {
-                vm.submissions = $filter('filter')(vm.submissions, { id: '!' + result.id });
+                vm.submissions = $filter('filter')(vm.submissions, { id: '!' + result.id }, true);
             }
 
             function failed(error) {
