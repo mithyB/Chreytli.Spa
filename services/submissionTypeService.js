@@ -2,13 +2,12 @@
     'use strict';
 
     ng.module(moduleId).service(serviceId, [
+        '$http',
+        'regexService',
         service
     ]);
 
-    function service() {
-
-        var youtubeRegex = /https?:\/\/(?:www\.)?youtube.com\/watch\?.*v=([A-Za-z0-9]+)/;
-
+    function service($http, regexService) {
         var submissionTypeSettings = {
             0: {
                 title: 'Image',
@@ -28,11 +27,11 @@
                 enlargementIcon: 'fa-youtube-play',
                 badgeIcon: 'fa-youtube-play',
                 style: { background: 'red', color: 'white' },
-                // <iframe src='http://www.youtube.com/embed/QILiHiTD3uc' frameborder='0' allowfullscreen></iframe>
+                // <iframe src='http://www.youtube.com/embed/QILiHiTD3uc?autoplay=1' frameborder='0' allowfullscreen></iframe>
                 getMediaElement: function (submission) {
                     return $('<iframe>', {
                         id: 'mediaModal-video',
-                        src: submission.url,
+                        src: submission.url + '?autoplay=1',
                         frameborder: 0,
                         allowfullscreen: true,
                         width: '100%',
@@ -49,8 +48,8 @@
                 getMediaElement: function (submission) {
                     return $('<iframe>', {
                         src: submission.url,
-                        width: 300,
-                        height: 380,
+                        width: '100%',
+                        height: '320px',
                         frameborder: 0,
                         allowtransparency: true
                     });
@@ -65,21 +64,29 @@
                 spotify: 2
             },
 
-            initialize: function (submission, url) {
+            initialize: function (submission, url, callback) {
                 switch (submission.type) {
                     case this.SubmissionTypes.image:
                         submission.img = url;
+                        callback(submission);
                         break;
                     case this.SubmissionTypes.youtube:
-                        var vid = youtubeRegex.exec(url)[1];
+                        var vid = regexService.youtube.exec(url)[1];
                         submission.url = 'http://www.youtube.com/embed/' + vid;
                         submission.img = 'http://img.youtube.com/vi/' + vid + '/0.jpg';
+                        callback(submission);
                         break;
                     case this.SubmissionTypes.spotify:
+                        var sid = regexService.spotify.exec(url)[1];
                         submission.url = 'https://embed.spotify.com/?uri=' + url;
+                        $http.get('https://api.spotify.com/v1/tracks/' + sid).success(function (result) {
+                            submission.img = result.album.images[1].url;
+                            callback(submission);
+                        }).error(function (error) {
+                            callback(submission);
+                        });
                         break;
                 }
-                return submission;
             },
 
             getMediaElement: function (submission) {

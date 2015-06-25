@@ -10,11 +10,12 @@
         'accountService',
         'submissionTypeService',
         'jQHubService',
+        'regexService',
         controller
     ]);
 
     function controller($resource, $filter, $location, $scope,
-        globalConfig, accountService, submissionTypeService, jQHubService) {
+        globalConfig, accountService, submissionTypeService, jQHubService, regexService) {
         var vm = this;
 
         var pageSize = 24;
@@ -167,23 +168,23 @@
             var submission = getNewSubmission();
             submission.authorId = account.id;
 
-            submission = submissionTypeService.initialize(submission, vm.newSubmission.url);
+            submissionTypeService.initialize(submission, vm.newSubmission.url, function (sub) {
+                var s = new Submission(sub);
+                s.$create().then(success, failed);
 
-            var s = new Submission(submission);
-            s.$create().then(success, failed);
+                function success(result) {
+                    result.author = {
+                        userName: account.username
+                    };
+                    result.date = moment(result.date);
+                    vm.submissions.splice(0, 0, result);
+                    $('#submitModal').modal('hide');
+                }
 
-            function success(result) {
-                result.author = {
-                    userName: account.username
-                };
-                result.date = moment(result.date);
-                vm.submissions.splice(0, 0, result);
-                $('#submitModal').modal('hide');
-            }
-
-            function failed(error) {
-                console.error(error);
-            }
+                function failed(error) {
+                    console.error(error);
+                }
+            });
         };
 
         function getNewSubmission() {
@@ -195,6 +196,11 @@
 
             return submission;
         }
+
+        $scope.$watch('vm.newSubmission.url', function (newVal, oldVal) {
+            var type = regexService.getUrlType(vm.newSubmission.url);
+            vm.newSubmission.type = type;
+        });
 
         jQHubService.initialize($filter, $location, $scope, vm);
     }
