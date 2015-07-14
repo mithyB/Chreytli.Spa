@@ -155,7 +155,7 @@
             s.$delete().then(success, failed);
 
             function success(result) {
-                vm.submissions = $filter('filter')(vm.submissions, { id: '!' + result.id }, true);
+                vm.submissions = $filter('filter')(vm.submissions, { id: result.id }, function (actual, expected) { return expected != actual });
             }
 
             function failed(error) {
