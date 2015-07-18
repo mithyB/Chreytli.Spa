@@ -45,6 +45,21 @@
                 }
             }
 
+        },
+        {
+            url: '/calendar',
+            config: {
+                controller: 'calendar as vm',
+                templateUrl: 'templates/calendar.html',
+                settings: {
+                    title: 'Events',
+                    style: {
+                        color: "orange"
+                    },
+                    showNav: true
+                }
+            }
+
         }
     ];
 

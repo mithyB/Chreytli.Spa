@@ -34,6 +34,10 @@
             });
         });
 
+        vm.isLoggedIn = function () {
+            return (accountService.getAccount());
+        };
+
         vm.loadMore = function (dataLoaded) {
             vm.page++;
             var account = accountService.getAccount();

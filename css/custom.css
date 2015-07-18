@@ -169,6 +169,14 @@
     background-size: cover;
 }
 
+.fullCalendar-event {
+    border-radius: 0;
+    border-left: 6px solid green;
+    background-color: mediumseagreen;
+    color: black;
+    font-size: 1.05em;
+}
+
 
 /* BOOTSTRAP CUSTOMIZATIONS */
 
