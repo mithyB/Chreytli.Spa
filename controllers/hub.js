@@ -66,7 +66,12 @@
         function loadData(result) {
             vm.isMoreDataAvailable = result.length == pageSize;
             ng.forEach(result, function (x) {
+                var hasHostedThumbnail = x.img.indexOf('http') !== 0;
+
                 x.date = moment(moment.utc(x.date).toDate()); // utc to local
+                x.img = (x.isHosted || hasHostedThumbnail ? globalConfig.baseUrl : '') + x.img;
+                x.url = (x.isHosted ? globalConfig.baseUrl : '') + x.url;
+
                 vm.submissions.push(x);
             })
         }
@@ -107,6 +112,14 @@
         vm.getTypeSetting = function (type, setting) {
             return submissionTypeService.getSetting(type, setting);
         };
+
+        vm.selectType = function (type) {
+            vm.newSubmission.type = type;
+        }
+
+        vm.isActive = function (type) {
+            return vm.newSubmission.type == type;
+        }
 
         function enlarge(submission) {
             var modal = $('#mediaModal');
@@ -167,16 +180,22 @@
             var account = accountService.getAccount();            
             var submission = getNewSubmission();
             submission.authorId = account.id;
+            submission.isHosted = true;// vm.newSubmission.isHosted;
 
             submissionTypeService.initialize(submission, vm.newSubmission.url, function (sub) {
                 var s = new Submission(sub);
                 s.$create().then(success, failed);
 
                 function success(result) {
+                    var hasHostedThumbnail = result.img.indexOf('http') !== 0;
+
                     result.author = {
                         userName: account.username
                     };
                     result.date = moment(result.date);
+                    result.img = (result.isHosted || hasHostedThumbnail ? globalConfig.baseUrl : '') + result.img;
+                    result.url = (result.isHosted ? globalConfig.baseUrl : '') + result.url;
+
                     vm.submissions.splice(0, 0, result);
                     $('#submitModal').modal('hide');
                 }

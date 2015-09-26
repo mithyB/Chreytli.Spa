@@ -35,7 +35,7 @@
 }
 
 .header-image {
-    background-image: url('http://hdwallsize.com/wp-content/uploads/2013/05/Download-Green-Background-Flowers-Wallpaper-Dekstop.jpg');
+    background-image: url('../images/banner.png');
     height: 200px;
     width: 100%;
     margin-top: -20px;

@@ -17,7 +17,7 @@
                 getMediaElement: function (submission) {
                     return $('<img>', {
                         id: 'mediaModal-image',
-                        src: submission.img,
+                        src: submission.url,
                         class: 'img-responsive'
                     });
                 }
@@ -54,6 +54,21 @@
                         allowtransparency: true
                     });
                 }
+            },
+            3: {
+                title: 'Video',
+                enlargementIcon: 'fa-search',
+                badgeIcon: 'fa-video-camera',
+                style: { background: 'deepskyblue', color: 'white' },
+                getMediaElement: function (submission) {
+                    return $('<video>', {
+                        id: 'mediaModal-image',
+                        src: submission.url,
+                        class: 'img-responsive',
+                        autoplay: true,
+                        loop: true
+                    });
+                }
             }
         };
 
@@ -61,13 +76,14 @@
             SubmissionTypes: {
                 image: 0,
                 youtube: 1,
-                spotify: 2
+                spotify: 2,
+                video: 3
             },
 
             initialize: function (submission, url, callback) {
                 switch (submission.type) {
                     case this.SubmissionTypes.image:
-                        submission.img = url;
+                        submission.url = url;
                         callback(submission);
                         break;
                     case this.SubmissionTypes.youtube:
@@ -85,6 +101,10 @@
                         }).error(function (error) {
                             callback(submission);
                         });
+                        break;
+                    case this.SubmissionTypes.video:
+                        submission.url = url;
+                        callback(submission);
                         break;
                 }
             },
