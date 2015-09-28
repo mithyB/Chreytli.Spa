@@ -66,7 +66,8 @@
                         src: submission.url,
                         class: 'img-responsive',
                         autoplay: true,
-                        loop: true
+                        loop: true,
+                        controls: true
                     });
                 }
             }

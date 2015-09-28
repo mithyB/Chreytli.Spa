@@ -78,7 +78,7 @@
                 x.url = (x.isHosted ? globalConfig.baseUrl : '') + x.url;
 
                 vm.submissions.push(x);
-            })
+            });
         }
 
         function loadUntilSubmissionIsFound(submissions, submissionId, finished) {

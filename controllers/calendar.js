@@ -5,10 +5,11 @@
         '$scope',
         '$resource',
         'globalConfig',
+        'accountService',
         controller
     ]);
 
-    function controller($scope, $resource, globalConfig) {
+    function controller($scope, $resource, globalConfig, accountService) {
         var vm = this;
 
         var Event = $resource(globalConfig.apiUrl + 'Events/:id', {}, {
@@ -23,6 +24,9 @@
         };
 
         var events = Event.query(function () {
+            ng.forEach(events, function (x) {
+                x.date = moment(moment.utc(x.date).toDate()); // utc to local
+            });
 
             eventSource.events = events;
 
@@ -90,6 +94,10 @@
         }
 
         vm.save = function () {
+            var account = accountService.getAccount();
+            vm.newEvent.authorId = account.id;
+            vm.newEvent.date = moment();
+
             var event = new Event(vm.newEvent);
             event.$create().then(function (result) {
                 events.push(result);
@@ -106,6 +114,18 @@
                 updateData(events);
             });
             $('#editEventModal').modal('hide');
+        };
+
+        vm.isInRole = function (role) {
+            var acc = accountService.getAccount();
+            if (acc && acc.roles) {
+                return acc.roles.indexOf(role) > -1;
+            }
+        }
+
+        vm.canDelete = function () {
+            var account = accountService.getAccount();
+            return vm.isInRole('Admins') || account && vm.selectedEvent.authorId == account.id;
         };
 
         vm.delete = function () {

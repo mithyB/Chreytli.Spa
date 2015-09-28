@@ -3,12 +3,13 @@
 
     ng.module(moduleId).controller(controllerId, [
         '$resource',
+        '$filter',
         'globalConfig',
         'accountService',
         controller
     ]);
 
-    function controller($resource, globalConfig, accountService) {
+    function controller($resource, $filter, globalConfig, accountService) {
         var vm = this;
 
         vm.polls = [];
@@ -37,6 +38,31 @@
         vm.isLoggedIn = function () {
             return (accountService.getAccount());
         };
+
+        vm.canDelete = function (poll) {
+            var account = accountService.getAccount();
+            return vm.isInRole('Admins') || account && poll.authorId == account.id;
+        };
+
+        vm.isInRole = function (role) {
+            var acc = accountService.getAccount();
+            if (acc && acc.roles) {
+                return acc.roles.indexOf(role) > -1;
+            }
+        };
+
+        vm.delete = function (poll) {
+            var p = new Poll(poll);
+            p.$delete().then(success, failed);
+
+            function success(result) {
+                vm.polls = $filter('filter')(vm.polls, { id: result.id }, function (actual, expected) { return expected != actual });
+            }
+
+            function failed(error) {
+                console.error(error);
+            }
+        }
 
         vm.loadMore = function (dataLoaded) {
             vm.page++;

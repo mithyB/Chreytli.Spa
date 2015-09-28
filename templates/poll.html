@@ -8,12 +8,19 @@
         <ul class="list-unstyled">
             <li ng-repeat="poll in vm.polls" class="poll-card">
                 <h4>
-                    {{poll.title}}<br>
+                    {{poll.title}}
+
+                    <br />
+                    
                     <small>
                         <i class="fa fa-user"></i>
                         {{poll.author.username}}
                         &nbsp;
                         <i class="fa fa-clock-o"></i> {{poll.date.fromNow()}}
+                        &nbsp;
+                        <a href="" class="text-danger" ng-show="vm.canDelete(poll)" ng-click="vm.delete(poll)">
+                            <i class="fa fa-times"></i> Remove
+                        </a>
                     </small>
                 </h4>
                 <div ng-hide="poll.showResult">
@@ -57,6 +64,7 @@
                     </a>
 
                 </div>
+
                 <hr>
             </li>
         </ul>
