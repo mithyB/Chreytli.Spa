@@ -40,6 +40,14 @@
                             }
                         }
                     });
+
+                    $(document).on('show.bs.modal', function () {
+                        vm.newSubmission = {
+                            type: 'image',
+                            isHosted: true
+                        };
+                    });
+
                     initialized = true;
                 }
             }

@@ -42,6 +42,27 @@
             accountService.setAccount();
         }
 
+        vm.getPasswordStrength = function () {
+            var strength = 0;
+
+            var baseRequirement = vm.login.password !== undefined && /.{6}/.test(vm.login.password);
+
+            var requirements = [
+                /[A-Z]/,
+                /[a-z]/,
+                /[0-9]/,
+                /[^a-zA-Z\d\s:]/
+            ];
+
+            for (var i = 0; i < requirements.length; i++) {
+                strength += requirements[i].test(vm.login.password) && baseRequirement ? 1 : 0;
+            }
+
+            strength = strength / requirements.length * 100;
+
+            return strength + '%';
+        };
+
         vm.register = function () {
             var data = {
                 Username: vm.login.username,

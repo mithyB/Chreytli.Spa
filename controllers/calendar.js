@@ -128,7 +128,7 @@
         }, function (e) {
 
             var items = [];
-            var el = $('.fc-event-container').find(e.srcElement);
+            var el = $('.fc-event-container').find(e.srcElement || e.originalTarget);
             if (el.length > 0) { // right click on event
                 items = [
                     {

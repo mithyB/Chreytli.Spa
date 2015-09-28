@@ -1,7 +1,7 @@
 ﻿(function (moduleId, valueId, ng) {
     'use strict';
     
-    var baseUrl = 'http://chreytli.noip.me/Chreytli.Api/';
+    var baseUrl = 'http://chreyt.li/Chreytli.Api/';
     //var baseUrl = 'http://localhost:53994/';
     var apiUrl = baseUrl + 'api/';
     var tokenUrl = baseUrl + 'token';

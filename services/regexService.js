@@ -7,7 +7,7 @@
 
     function service() {
         var regexes = {
-            youtube: /https?:\/\/(?:www\.)?youtube.com\/watch\?.*v=([A-Za-z0-9]+)/,
+            youtube: /https?:\/\/(?:www\.)?youtube.com\/watch\?.*v=([A-Za-z0-9_\-]+)/,
             spotify: /spotify:track:(.*)/
         }
 

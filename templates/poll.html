@@ -1,69 +1,72 @@
 ﻿<div class="row">
-    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newPollModal" ng-show="vm.isLoggedIn()">
-        <i class="fa fa-edit"></i>
-        Create poll
-    </a>
+    <div class="col-md-12">
+        <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newPollModal" ng-show="vm.isLoggedIn()">
+            <i class="fa fa-edit"></i>
+            Create poll
+        </a>
 
-    <ul class="list-unstyled">
-        <li ng-repeat="poll in vm.polls" class="poll-card">
-            <h4>
-                {{poll.title}}<br>
-                <small>
-                    <i class="fa fa-user"></i>
-                    {{poll.author.username}}
-                    &nbsp;
-                    <i class="fa fa-clock-o"></i> {{poll.date.fromNow()}}
-                </small>
-            </h4>
-            <div ng-hide="poll.showResult">
+        <ul class="list-unstyled">
+            <li ng-repeat="poll in vm.polls" class="poll-card">
+                <h4>
+                    {{poll.title}}<br>
+                    <small>
+                        <i class="fa fa-user"></i>
+                        {{poll.author.username}}
+                        &nbsp;
+                        <i class="fa fa-clock-o"></i> {{poll.date.fromNow()}}
+                    </small>
+                </h4>
+                <div ng-hide="poll.showResult">
 
-                <div ng-repeat="choice in poll.choices">
-                    <div class="checkbox" ng-show="poll.multipleChoice">
-                        <label>
-                            <input ng-click="vm.toggleVote(poll, choice)" type="checkbox">
-                            {{choice.text}}
-                        </label>
-                    </div>
-
-                    <div class="radio" ng-hide="poll.multipleChoice">
-                        <label>
-                            <input ng-click="vm.toggleVote(poll, choice)" type="radio" name="{{'poll_' + poll.id}}">
-                            {{choice.text}}
-                        </label>
-                    </div>
-                </div>
-                <a href="" class="btn btn-primary btn-sm" ng-click="vm.vote(poll)">
-                    <i class="fa fa-comment"></i>
-                    Vote
-                </a>
-
-            </div>
-            <div ng-show="poll.showResult">
-
-                <div class="collapse" id="pollbody_{{poll.id}}">
                     <div ng-repeat="choice in poll.choices">
-                        {{choice.text}}
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width:{{choice.percentage}};">
+                        <div class="checkbox" ng-show="poll.multipleChoice">
+                            <label>
+                                <input ng-click="vm.toggleVote(poll, choice)" type="checkbox">
+                                {{choice.text}}
+                            </label>
+                        </div>
 
+                        <div class="radio" ng-hide="poll.multipleChoice">
+                            <label>
+                                <input ng-click="vm.toggleVote(poll, choice)" type="radio" name="{{'poll_' + poll.id}}">
+                                {{choice.text}}
+                            </label>
+                        </div>
+                    </div>
+                    <a href="" class="btn btn-primary btn-sm" ng-click="vm.vote(poll)">
+                        <i class="fa fa-comment"></i>
+                        Vote
+                    </a>
+
+                </div>
+                <div ng-show="poll.showResult">
+
+                    <div class="collapse" id="pollbody_{{poll.id}}">
+                        <div ng-repeat="choice in poll.choices">
+                            {{choice.text}}
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width:{{choice.percentage}};">
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <a href="" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#pollbody_{{poll.id}}">
-                    <i class="fa fa-pie-chart"></i>
-                    Results
-                </a>
+                    <a href="" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#pollbody_{{poll.id}}">
+                        <i class="fa fa-pie-chart"></i>
+                        Results
+                    </a>
 
-            </div>
-            <hr>
-        </li>
-    </ul>
-    <div>
-        <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"
-           class="load-more-bar col-md-12 col-sm-12 col-xs-12">
-            Load more...
-        </a>
+                </div>
+                <hr>
+            </li>
+        </ul>
+        <div>
+            <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"
+               class="load-more-bar col-md-12 col-sm-12 col-xs-12">
+                <span ng-show="vm.loadingMore" class="fa fa-circle-o-notch fa-spin"></span>
+                Load more...
+            </a>
+        </div>
     </div>
 </div>
 

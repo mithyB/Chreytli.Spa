@@ -40,6 +40,8 @@
 
         vm.loadMore = function (dataLoaded) {
             vm.page++;
+            vm.loadingMore = true;
+
             var account = accountService.getAccount();
             var accountId = account ? account.id : '';
             Poll.query({ userId: accountId, page: vm.page, pageSize: globalConfig.pollsPageSize }).$promise.then(function (result) {
@@ -47,8 +49,11 @@
 
                 if (dataLoaded) { dataLoaded(result); }
 
+                vm.loadingMore = false;
             }, function (error) {
                 console.error(error);
+
+                vm.loadingMore = false;
             });
         };
 

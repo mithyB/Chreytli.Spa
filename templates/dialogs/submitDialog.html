@@ -14,16 +14,34 @@
                         <input ng-model="vm.newSubmission.url"
                                type="text" class="form-control" id="inputUrl" placeholder="Enter URL...">
                     </div>
-                    <select class="form-control" ng-model="vm.newSubmission.type">
-                        <option value="image">Image</option>
-                        <option value="youtube">YouTube</option>
-                        <option value="spotify">Spotify</option>
-                    </select>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default btn-lg"
+                                ng-class="{'active':vm.isActive('image')}" ng-click="vm.selectType('image')">
+                            <img src="../../images/upload.png" />
+                        </button>
+                        <button type="button" class="btn btn-default btn-lg"
+                                ng-class="{'active':vm.isActive('youtube')}" ng-click="vm.selectType('youtube')">
+                            <img src="../../images/youtube.png" />
+                        </button>
+                        <button type="button" class="btn btn-default btn-lg"
+                                ng-class="{'active':vm.isActive('spotify')}" ng-click="vm.selectType('spotify')">
+                            <img src="../../images/spotify.png" />
+                        </button>
+                    </div>
+                    
+                    <!--<div class="checkbox" ng-show="vm.isActive('image')">
+                        <label>
+                            <input type="checkbox" checked ng-model="vm.newSubmission.isHosted"> Host on Chreytli Hub
+                        </label>
+                    </div>-->
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="vm.submit()">Submit</button>
+                <button type="button" class="btn btn-primary" ng-click="vm.submit()">
+                    Submit
+                    <span ng-show="vm.isSubmitting" class="fa fa-circle-o-notch fa-spin"></span>
+                </button>
             </div>
         </div>
     </div>
