@@ -18,9 +18,12 @@
                                ng-model="vm.login.email">
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword">Password</label>
+                        <label for="inputPassword">Password (min. 6 characters)</label>
                         <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                                ng-model="vm.login.password">
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width:{{vm.getPasswordStrength()}}"></div>
                     </div>
                     <div class="form-group">
                         <label for="inputConfirmPassword">Confirm password</label>

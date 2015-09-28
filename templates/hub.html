@@ -32,6 +32,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"
             class="load-more-bar col-md-12 col-sm-12 col-xs-12">
+            <span ng-show="vm.loadingMore" class="fa fa-circle-o-notch fa-spin"></span>
             Load more...
         </a>
     </div>

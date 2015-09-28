@@ -38,7 +38,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="vm.submit()">Submit</button>
+                <button type="button" class="btn btn-primary" ng-click="vm.submit()">
+                    Submit
+                    <span ng-show="vm.isSubmitting" class="fa fa-circle-o-notch fa-spin"></span>
+                </button>
             </div>
         </div>
     </div>

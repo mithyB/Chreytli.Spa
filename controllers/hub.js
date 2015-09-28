@@ -50,6 +50,8 @@
 
         vm.loadMore = function (dataLoaded) {
             vm.page++;
+            vm.loadingMore = true;
+
             var account = accountService.getAccount();
             var accountId = account ? account.id : '';
 
@@ -58,8 +60,11 @@
 
                 if (dataLoaded) dataLoaded(result);
 
+                vm.loadingMore = false;
             }, function (error) {
                 console.error(error);
+
+                vm.loadingMore = false;
             });
         }
 
@@ -182,6 +187,8 @@
             submission.authorId = account.id;
             submission.isHosted = true;// vm.newSubmission.isHosted;
 
+            vm.isSubmitting = true;
+
             submissionTypeService.initialize(submission, vm.newSubmission.url, function (sub) {
                 var s = new Submission(sub);
                 s.$create().then(success, failed);
@@ -198,10 +205,14 @@
 
                     vm.submissions.splice(0, 0, result);
                     $('#submitModal').modal('hide');
+
+                    vm.isSubmitting = false;
                 }
 
                 function failed(error) {
                     console.error(error);
+
+                    vm.isSubmitting = false;
                 }
             });
         };
