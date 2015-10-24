@@ -30,6 +30,8 @@
                         <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password"
                                ng-model="vm.login.confirmPassword">
                     </div>
+
+                    <button type="submit" class="ng-hide" ng-click="vm.register()"></button>
                 </form>
 
                 <div ng-show="vm.registerError" class="alert alert-danger">

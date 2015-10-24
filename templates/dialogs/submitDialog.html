@@ -14,26 +14,39 @@
                         <input ng-model="vm.newSubmission.url"
                                type="text" class="form-control" id="inputUrl" placeholder="Enter URL...">
                     </div>
+
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default btn-lg"
-                                ng-class="{'active':vm.isActive('image')}" ng-click="vm.selectType('image')">
+                                ng-class="{'active':vm.isActiveType('image')}" ng-click="vm.selectType('image')">
                             <img src="../../images/upload.png" />
                         </button>
                         <button type="button" class="btn btn-default btn-lg"
-                                ng-class="{'active':vm.isActive('youtube')}" ng-click="vm.selectType('youtube')">
+                                ng-class="{'active':vm.isActiveType('youtube')}" ng-click="vm.selectType('youtube')">
                             <img src="../../images/youtube.png" />
                         </button>
                         <button type="button" class="btn btn-default btn-lg"
-                                ng-class="{'active':vm.isActive('spotify')}" ng-click="vm.selectType('spotify')">
+                                ng-class="{'active':vm.isActiveType('spotify')}" ng-click="vm.selectType('spotify')">
                             <img src="../../images/spotify.png" />
                         </button>
                     </div>
-                    
-                    <!--<div class="checkbox" ng-show="vm.isActive('image')">
-                        <label>
-                            <input type="checkbox" checked ng-model="vm.newSubmission.isHosted"> Host on Chreytli Hub
-                        </label>
-                    </div>-->
+
+                    <div class="col-lg-12"></div>
+                    <br />
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" tabindex="-1"
+                                ng-class="{'active':vm.isActiveTag(0)}" ng-click="vm.selectTag(0, $event)">
+                            SFW
+                        </button>
+                        <button type="button" class="btn btn-default" tabindex="-1"
+                                ng-class="{'active':vm.isActiveTag(1)}" ng-click="vm.selectTag(1, $event)">
+                            NSFW
+                        </button>
+                        <button type="button" class="btn btn-default" tabindex="-1"
+                                ng-class="{'active':vm.isActiveTag(2)}" ng-click="vm.selectTag(2, $event)">
+                            NSFL
+                        </button>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

@@ -32,8 +32,11 @@
         });
 
         accountService.onAccountLoaded(function (account) {
-            var accountId = account ? account.id : '';
-            Submission.query({ userId: accountId, page: vm.page }).$promise.then(function (result) {
+            loadSubmissions(account ? account.id : '');
+        });
+
+        function loadSubmissions(accountId) {
+            Submission.query({ userId: accountId, page: vm.page, filter: vm.filter }).$promise.then(function (result) {
                 loadData(result);
 
                 var search = $location.search();
@@ -46,7 +49,7 @@
             }, function (error) {
                 console.error(error);
             });
-        });
+        }
 
         vm.loadMore = function (dataLoaded) {
             vm.page++;
@@ -92,6 +95,7 @@
             }
         }
 
+        vm.filter = ['sfw'];
         vm.submissions = [];
         vm.page = 0;
         vm.newSubmission = {
@@ -122,8 +126,32 @@
             vm.newSubmission.type = type;
         }
 
-        vm.isActive = function (type) {
+        vm.isActiveType = function (type) {
             return vm.newSubmission.type == type;
+        }
+
+        vm.selectTag = function (tag) {
+            vm.newSubmission.tag = tag;
+        }
+
+        vm.isActiveTag = function (tag) {
+            return vm.newSubmission.tag == tag;
+        }
+
+        vm.selectFilter = function (filter, element) {
+            $(element.target).blur();
+            if (vm.isActiveFilter(filter)) {
+                vm.filter.splice(vm.filter.indexOf(filter), 1);
+            } else {
+                vm.filter.push(filter);
+            }
+
+            vm.submissions = [];
+            loadSubmissions(accountService.getAccount().id)
+        }
+
+        vm.isActiveFilter = function (filter) {
+            return vm.filter.indexOf(filter) > -1;
         }
 
         function enlarge(submission) {
@@ -221,7 +249,8 @@
             var submission = {
                 date: moment(),
                 score: 0,
-                type: submissionTypeService.SubmissionTypes[vm.newSubmission.type]
+                type: submissionTypeService.SubmissionTypes[vm.newSubmission.type],
+                tag: vm.newSubmission.tag
             };
 
             return submission;

@@ -17,6 +17,8 @@
                         <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                                ng-model="vm.login.password">
                     </div>
+
+                    <button type="submit" class="ng-hide" ng-click="vm.login()"></button>
                 </form>
 
                 <div ng-show="vm.loginError" class="alert alert-danger">

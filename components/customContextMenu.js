@@ -45,18 +45,24 @@ customContextMenu = (function() {
             });
 
             document.body.appendChild(div[0]);
+
+            return true;
         }
+
+        return false;
     }
 
     if (document.addEventListener) {
         document.addEventListener('contextmenu', function (e) {
-            onContextMenu(e);
-            e.preventDefault();
+            if (onContextMenu(e)) {
+                e.preventDefault();
+            }
         }, false);
     } else {
         document.attachEvent('oncontextmenu', function () {
-            onContextMenu(e);
-            window.event.returnValue = false;
+            if (onContextMenu(e)) {
+                window.event.returnValue = false;
+            }
         });
     }
 

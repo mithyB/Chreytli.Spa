@@ -19,6 +19,7 @@
             return route === $location.path();
         };
 
+        vm.canRegister = false;
         vm.serverUnreachable = false;
         vm.loading = true;
         vm.route = $route.current.settings;
@@ -119,6 +120,7 @@
             delete vm.account;
             accountService.resetAccount();
             accountService.setAccount();
+            vm.canRegister = false;
             $route.reload();
         };
 
@@ -132,6 +134,7 @@
             }).success(function (result) {
                 vm.account = result;
                 accountService.setAccount(vm.account);
+                vm.canRegister = vm.account.roles.indexOf('Admins') > -1;
             }).error(function (error, message) {
                 console.error(message);
                 vm.logout();

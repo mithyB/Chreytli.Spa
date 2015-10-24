@@ -19,7 +19,7 @@
                     <li ng-class="{active:vm.isActive(route.route)}" ng-repeat="route in vm.routes|filter:{showNav:true}"><a ng-href="#{{route.route}}">{{route.title}}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-hide="vm.account"><a href="" data-toggle="modal" data-target="#registerModal"><i class="fa fa-pencil-square-o"></i> Register</a></li>
+                    <li ng-show="vm.canRegister"><a href="" data-toggle="modal" data-target="#registerModal"><i class="fa fa-pencil-square-o"></i> Register</a></li>
                     <li ng-hide="vm.account"><a href="" data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i> Login</a></li>
                     <li ng-show="vm.account"><a href=""><i class="fa fa-user"></i> {{vm.account.username}}</a></li>
                     <li ng-show="vm.account"><a href="" ng-click="vm.logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
