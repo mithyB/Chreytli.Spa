@@ -31,7 +31,7 @@
         <!-- additional js -->
         <script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
 
-        <div ng-include="src='shell/shell.html'"></div>
+        <div ng-include="src='app/shell/shell.html'"></div>
 
         <!-- app -->
         <script src="app.js"></script>
@@ -39,26 +39,26 @@
         <script src="globalConfig.js"></script>
 
         <!-- routes -->
-        <script src="routes/routes.js"></script>
+        <script src="app/routes/routes.js"></script>
 
         <!-- components -->
         <script src="components/customContextMenu.js"></script>      
 
         <!-- controllers -->
-        <script src="controllers/shell.js"></script>
-        <script src="controllers/main.js"></script>
-        <script src="controllers/hub.js"></script>
-        <script src="controllers/poll.js"></script>   
-        <script src="controllers/calendar.js"></script>           
+        <script src="app/shell/shell.js"></script>
+        <script src="app/gaming/main.js"></script>
+        <script src="app/hub/hub.js"></script>
+        <script src="app/polls/poll.js"></script>   
+        <script src="app/calendar/calendar.js"></script>           
         
         <!-- services -->
-        <script src="services/accountService.js"></script>
-        <script src="services/submissionTypeService.js"></script>
-        <script src="services/jQHubService.js"></script>
-        <script src="services/regexService.js"></script>
+        <script src="app/services/accountService.js"></script>
+        <script src="app/services/submissionTypeService.js"></script>
+        <script src="app/services/jQHubService.js"></script>
+        <script src="app/services/regexService.js"></script>
 
         <!-- filters -->
-        <script src="filters/unsafe.js"></script>
+        <script src="app/filters/unsafe.js"></script>
 
         <!-- Google Analytics -->
         <script>

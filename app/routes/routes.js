@@ -6,7 +6,7 @@
             url: '/',
             config: {
                 controller: 'hub as vm',
-                templateUrl: 'templates/hub.html',
+                templateUrl: 'app/hub/hub.html',
                 reloadOnSearch: false,
                 settings: {
                     title: 'Hub',
@@ -21,7 +21,7 @@
             url: '/poll',
             config: {
                 controller: 'poll as vm',
-                templateUrl: 'templates/poll.html',
+                templateUrl: 'app/polls/poll.html',
                 settings: {
                     title: 'Poll',
                     style: {
@@ -32,10 +32,10 @@
             }
         },
         {
-            url: '/main',
+            url: '/gaming',
             config: {
                 controller: 'main as vm',
-                templateUrl: 'templates/main.html',
+                templateUrl: 'app/gaming/main.html',
                 settings: {
                     title: 'Gaming',
                     style: {
@@ -50,7 +50,7 @@
             url: '/calendar',
             config: {
                 controller: 'calendar as vm',
-                templateUrl: 'templates/calendar.html',
+                templateUrl: 'app/calendar/calendar.html',
                 settings: {
                     title: 'Events',
                     style: {
