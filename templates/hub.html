@@ -4,7 +4,7 @@
             <i class="fa fa-arrow-circle-up"></i> Submit
         </button>
 
-        <div class="btn-group" role="group">
+        <div class="btn-group" role="group" ng-show="vm.isLoggedIn()">
             <button type="button" class="btn btn-default" tabindex="-1"
                     ng-class="{'active':vm.isActiveFilter('sfw')}" ng-click="vm.selectFilter('sfw', $event)">
                 SFW
@@ -33,9 +33,9 @@
         <div><i class="fa fa-user"></i> {{submission.author.userName}}</div>
         <div><i class="fa fa-clock-o"></i> {{submission.date.fromNow()}}</div>
         <div>
-            <a href="" class="favorite-star" ng-click="vm.favorite(submission)" tabindex="-1">
+            <a href="" class="favorite-icon" ng-click="vm.favorite(submission)" tabindex="-1">
                 {{submission.score}}
-                <i class="fa fa-star" ng-class="{'favorite':submission.isFavorite}"></i>
+                <i class="fa fa-heart" ng-class="{'favorite':submission.isFavorite}"></i>
             </a>
         </div>
         <a class="media-element-delete" ng-show="vm.canDelete(submission)" href="" ng-click="vm.delete(submission)">

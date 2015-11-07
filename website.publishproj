@@ -24,6 +24,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SourceWebProject>http://localhost:53731</SourceWebProject>
     <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/5/ROOT</SourceWebMetabasePath>
+    <ExcludeFoldersFromDeployment>node_modules</ExcludeFoldersFromDeployment>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

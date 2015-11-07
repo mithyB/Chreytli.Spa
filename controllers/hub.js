@@ -18,8 +18,6 @@
         globalConfig, accountService, submissionTypeService, jQHubService, regexService) {
         var vm = this;
 
-        var pageSize = 24;
-
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
             'query': { method: 'GET', isArray: true },
             'create': { method: 'POST', headers: { authorization: localStorage.getItem('access_token') } },
@@ -72,7 +70,7 @@
         }
 
         function loadData(result) {
-            vm.isMoreDataAvailable = result.length == pageSize;
+            vm.isMoreDataAvailable = result.length == globalConfig.postsPageSize;
             ng.forEach(result, function (x) {
                 var hasHostedThumbnail = x.img.indexOf('http') !== 0;
 
@@ -101,6 +99,7 @@
         vm.newSubmission = {
             type: 'image'
         };
+        vm.newSubmission.tag = 0;
 
         vm.isLoggedIn = function () {
             return (accountService.getAccount());
@@ -115,7 +114,7 @@
 
         vm.canDelete = function (submission) {
             var account = accountService.getAccount();
-            return vm.isInRole('Admins') || account && submission.authorId == account.id;
+            return vm.isInRole('Admins') || account && submission.author.id == account.id;
         };
 
         vm.getTypeSetting = function (type, setting) {
@@ -147,7 +146,8 @@
             }
 
             vm.submissions = [];
-            loadSubmissions(accountService.getAccount().id)
+            var acc = accountService.getAccount();
+            loadSubmissions(acc ? acc.id : undefined)
         }
 
         vm.isActiveFilter = function (filter) {
@@ -212,7 +212,7 @@
         vm.submit = function () {
             var account = accountService.getAccount();            
             var submission = getNewSubmission();
-            submission.authorId = account.id;
+            submission.author = { id: account.id };
             submission.isHosted = true;// vm.newSubmission.isHosted;
 
             vm.isSubmitting = true;
@@ -247,6 +247,7 @@
 
         function getNewSubmission() {
             var submission = {
+                url: vm.newSubmission.url,
                 date: moment(),
                 score: 0,
                 type: submissionTypeService.SubmissionTypes[vm.newSubmission.type],

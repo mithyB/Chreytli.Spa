@@ -41,7 +41,7 @@
 
         vm.canDelete = function (poll) {
             var account = accountService.getAccount();
-            return vm.isInRole('Admins') || account && poll.authorId == account.id;
+            return vm.isInRole('Admins') || account && poll.author.id == account.id;
         };
 
         vm.isInRole = function (role) {
@@ -131,7 +131,7 @@
         vm.createPoll = function () {
             if (vm.newPoll) {
                 vm.newPoll.date = moment();
-                vm.newPoll.authorId = accountService.getAccount().id;
+                vm.newPoll.author = { id: accountService.getAccount().id };
                 Poll.create(vm.newPoll).$promise.then(function (result) {
                     result.author = {
                         username: accountService.getAccount().username

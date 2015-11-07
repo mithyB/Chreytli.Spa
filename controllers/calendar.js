@@ -95,7 +95,7 @@
 
         vm.save = function () {
             var account = accountService.getAccount();
-            vm.newEvent.authorId = account.id;
+            vm.newEvent.author = { id: account.id };
             vm.newEvent.date = moment();
 
             var event = new Event(vm.newEvent);
@@ -125,7 +125,7 @@
 
         vm.canDelete = function () {
             var account = accountService.getAccount();
-            return vm.isInRole('Admins') || account && vm.selectedEvent.authorId == account.id;
+            return vm.isInRole('Admins') || account && vm.selectedEvent.author.id == account.id;
         };
 
         vm.delete = function () {

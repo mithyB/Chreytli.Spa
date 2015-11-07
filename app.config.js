@@ -1,22 +1,16 @@
-﻿(function (moduleId, valueId, ng) {
+﻿(function (moduleId, ng) {
     'use strict';
-    
-    //var baseUrl = 'http://chreyt.li/Chreytli.Api/';
-    var baseUrl = 'http://localhost:53994/';
-    var apiUrl = baseUrl + 'api/';
-    var tokenUrl = baseUrl + 'token';
-    var metaUrl = apiUrl + 'Meta/';
 
-    var value = {
-        baseUrl: baseUrl,
-        apiUrl: apiUrl,
-        tokenUrl: tokenUrl,
-        metaUrl: metaUrl,
+    ng.module(moduleId).config([
+        '$routeProvider',
+        'routes',
+        config]);
 
-        postsPageSize: 4,
-        pollsPageSize: 4
-    };
+    function config($routeProvider, routes) {
+        routes.forEach(function (r) {
+            $routeProvider.when(r.url, r.config);
+        });
+        $routeProvider.otherwise({ redirectTo: '/' });
+    }
 
-    ng.module(moduleId).value(valueId, value);
-
-})(appName, 'globalConfig', angular)
+})(appName, angular)

@@ -142,7 +142,7 @@
     margin-right: auto;
 }
 
-.favorite-star {
+.favorite-icon {
     position: absolute;
     right: 14px;
     font-size: 24px;
@@ -151,12 +151,12 @@
     text-decoration: none;
 }
 
-.favorite-star:hover {
+.favorite-icon:hover {
     color: #888;
 }
 
-.favorite-star > .favorite {
-    color: gold;
+.favorite-icon > .favorite {
+    color: crimson;
 }
 
 .media-element-thumbnail > .image {
