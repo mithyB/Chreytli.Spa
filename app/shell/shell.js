@@ -13,6 +13,7 @@
     ]);
 
     function controller($location, $route, $scope, $http, $filter, globalConfig, accountService) {
+        /*jshint validthis:true */
         var vm = this;
 
         vm.isActive = function(route) {
@@ -70,9 +71,13 @@
                 Email: vm.login.email,
                 Password: vm.login.password,
                 ConfirmPassword: vm.login.confirmPassword
-            }
+            };
 
-            $http.post(globalConfig.apiUrl + 'Account/Register', data).success(function (result) {
+            $http.post(globalConfig.apiUrl + 'Account/Register', data, {
+                headers: {
+                    authorization: localStorage.getItem('access_token')
+                }
+            }).success(function (result) {
                 delete vm.registerError;
                 vm.login();
                 $('#registerModal').modal('hide');

@@ -51,7 +51,7 @@
                     initialized = true;
                 }
             }
-        }
+        };
     }
 
 })(appName, 'jQHubService', angular);

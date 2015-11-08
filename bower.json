@@ -13,13 +13,21 @@
     "test",
     "tests"
   ],
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  },
   "dependencies": {
     "jquery": "~2.1.4",
     "angular": "~1.4.1",
     "angular-route": "~1.4.1",
     "bootstrap": "~3.3.5",
     "fontawesome": "~4.3.0",
-    "moment": "~2.10.3",
+    "moment": "~2.10.6",
     "angular-resource": "~1.4.1",
     "fullcalendar": "~2.3.2"
   }

@@ -60,9 +60,24 @@
                 }
             }
 
+        },
+        {
+            url: '/profile',
+            config: {
+                controller: 'profile as vm',
+                templateUrl: 'app/profile/profile.html',
+                settings: {
+                    title: 'You',
+                    style: {
+                        color: "black"
+                    },
+                    showNav: false
+                }
+            }
+
         }
     ];
 
     ng.module(moduleId).constant(valueId, value);
 
-})(appName, 'routes', angular)
+})(appName, 'routes', angular);

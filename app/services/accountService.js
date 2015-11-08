@@ -32,7 +32,7 @@
                     accountLoaded = action;
                 }
             }
-        }
+        };
     }
 
 })(appName, 'accountService', angular);

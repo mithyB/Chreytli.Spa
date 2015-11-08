@@ -117,7 +117,7 @@
             getSetting: function (type, property) {
                 return submissionTypeSettings[type][property];
             }
-        }
+        };
     }
 
 })(appName, 'submissionTypeService', angular);

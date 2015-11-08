@@ -9,7 +9,7 @@
         var regexes = {
             youtube: /https?:\/\/(?:www\.)?youtube.com\/watch\?.*v=([A-Za-z0-9_\-]+)/,
             spotify: /spotify:track:(.*)/
-        }
+        };
 
         return {
             youtube: regexes.youtube,
@@ -24,7 +24,7 @@
 
                 return 'image';
             }
-        }
+        };
     }
 
 })(appName, 'regexService', angular);

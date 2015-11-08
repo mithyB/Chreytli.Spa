@@ -13,4 +13,4 @@
         $routeProvider.otherwise({ redirectTo: '/' });
     }
 
-})(appName, angular)
+})(appName, angular);

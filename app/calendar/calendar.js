@@ -10,6 +10,7 @@
     ]);
 
     function controller($scope, $resource, globalConfig, accountService) {
+        /*jshint validthis:true */
         var vm = this;
 
         var Event = $resource(globalConfig.apiUrl + 'Events/:id', {}, {
@@ -25,7 +26,7 @@
 
         var events = Event.query(function () {
             ng.forEach(events, function (x) {
-                x.date = moment(moment.utc(x.date).toDate()); // utc to local
+                x.date = moment(x.date);
             });
 
             eventSource.events = events;
@@ -83,8 +84,11 @@
         vm.newEvent = {};
 
         function convertEvent(evt) {
+            var account = accountService.getAccount();
+
             return {
                 id: evt.id,
+                author: { id: account.id },
                 title: evt.title,
                 description: evt.description,
                 start: evt.start,
@@ -121,7 +125,7 @@
             if (acc && acc.roles) {
                 return acc.roles.indexOf(role) > -1;
             }
-        }
+        };
 
         vm.canDelete = function () {
             var account = accountService.getAccount();
@@ -159,14 +163,14 @@
                         key: 'delete',
                         html: '<i class="fa fa-times"></i>&nbsp;Delete'
                     }
-                ]
+                ];
             } else {
                 items = [
                     {
                         key: 'new',
                         html: '<i class="fa fa-calendar"></i>&nbsp;New event'
                     }
-                ]
+                ];
             }
 
             return items;
@@ -187,7 +191,7 @@
                     });
                     break;
             }
-        })
+        });
 
     }
 

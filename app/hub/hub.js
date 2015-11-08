@@ -16,6 +16,7 @@
 
     function controller($resource, $filter, $location, $scope,
         globalConfig, accountService, submissionTypeService, jQHubService, regexService) {
+        /*jshint validthis:true */
         var vm = this;
 
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
@@ -34,7 +35,7 @@
         });
 
         function loadSubmissions(accountId) {
-            Submission.query({ userId: accountId, page: vm.page, filter: vm.filter }).$promise.then(function (result) {
+            Submission.query({ userId: accountId, page: vm.page, filter: vm.filter, pageSize: globalConfig.postsPageSize }).$promise.then(function (result) {
                 loadData(result);
 
                 var search = $location.search();
@@ -56,7 +57,7 @@
             var account = accountService.getAccount();
             var accountId = account ? account.id : '';
 
-            Submission.query({ userId: accountId, page: vm.page }).$promise.then(function (result) {
+            Submission.query({ userId: accountId, page: vm.page, filter: vm.filter, pageSize: globalConfig.postsPageSize }).$promise.then(function (result) {
                 loadData(result);
 
                 if (dataLoaded) dataLoaded(result);
@@ -67,7 +68,7 @@
 
                 vm.loadingMore = false;
             });
-        }
+        };
 
         function loadData(result) {
             vm.isMoreDataAvailable = result.length == globalConfig.postsPageSize;
@@ -89,7 +90,7 @@
             } else {
                 vm.loadMore(function (result) {
                     loadUntilSubmissionIsFound(result, submissionId, finished);
-                })
+                });
             }
         }
 
@@ -110,7 +111,7 @@
             if (acc && acc.roles) {
                 return acc.roles.indexOf(role) > -1;
             }
-        }
+        };
 
         vm.canDelete = function (submission) {
             var account = accountService.getAccount();
@@ -123,19 +124,19 @@
 
         vm.selectType = function (type) {
             vm.newSubmission.type = type;
-        }
+        };
 
         vm.isActiveType = function (type) {
             return vm.newSubmission.type == type;
-        }
+        };
 
         vm.selectTag = function (tag) {
             vm.newSubmission.tag = tag;
-        }
+        };
 
         vm.isActiveTag = function (tag) {
             return vm.newSubmission.tag == tag;
-        }
+        };
 
         vm.selectFilter = function (filter, element) {
             $(element.target).blur();
@@ -145,14 +146,15 @@
                 vm.filter.push(filter);
             }
 
+            vm.page = 0;
             vm.submissions = [];
             var acc = accountService.getAccount();
-            loadSubmissions(acc ? acc.id : undefined)
-        }
+            loadSubmissions(acc ? acc.id : undefined);
+        };
 
         vm.isActiveFilter = function (filter) {
             return vm.filter.indexOf(filter) > -1;
-        }
+        };
 
         function enlarge(submission) {
             var modal = $('#mediaModal');
@@ -171,7 +173,7 @@
         }
 
         vm.enlarge = function (submission) {
-            $location.search({ s: submission.id })
+            $location.search({ s: submission.id });
             enlarge(submission);
         };
 
@@ -192,7 +194,7 @@
                 var s = new Submission(submission);
                 s.$favorite({ userId: account.id }).then(success, failed);
             } else {
-                alert('You are not logged in. Please log in or register if you haven\'t already.')
+                alert('You are not logged in. Please log in or register if you haven\'t already.');
             }
         };
 
@@ -201,7 +203,7 @@
             s.$delete().then(success, failed);
 
             function success(result) {
-                vm.submissions = $filter('filter')(vm.submissions, { id: result.id }, function (actual, expected) { return expected != actual });
+                vm.submissions = $filter('filter')(vm.submissions, { id: result.id }, function (actual, expected) { return expected != actual; });
             }
 
             function failed(error) {

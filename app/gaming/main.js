@@ -7,6 +7,7 @@
     ]);
 
     function controller($scope) {
+        /*jshint validthis:true */
         var vm = this;
 
         

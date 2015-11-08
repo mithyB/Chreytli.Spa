@@ -1,6 +1,6 @@
 ﻿(function (moduleId, valueId, ng) {
     'use strict';
-    
+
     //var baseUrl = 'http://chreyt.li/Chreytli.Api/';
     var baseUrl = 'http://localhost:53994/';
     var apiUrl = baseUrl + 'api/';
@@ -13,10 +13,10 @@
         tokenUrl: tokenUrl,
         metaUrl: metaUrl,
 
-        postsPageSize: 4,
-        pollsPageSize: 4
+        postsPageSize: 12,
+        pollsPageSize: 12
     };
 
     ng.module(moduleId).value(valueId, value);
 
-})(appName, 'globalConfig', angular)
+})(appName, 'globalConfig', angular);

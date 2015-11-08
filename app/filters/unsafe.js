@@ -12,7 +12,7 @@
                 return $sce.trustAsHtml(s);
                 //return $sce.trustAsHtml($("<div/>").html(s).text());
             }
-        }
+        };
     }
 
-})(appName, 'unsafe', angular)
+})(appName, 'unsafe', angular);

@@ -10,6 +10,7 @@
     ]);
 
     function controller($resource, $filter, globalConfig, accountService) {
+        /*jshint validthis:true */
         var vm = this;
 
         vm.polls = [];
@@ -56,13 +57,13 @@
             p.$delete().then(success, failed);
 
             function success(result) {
-                vm.polls = $filter('filter')(vm.polls, { id: result.id }, function (actual, expected) { return expected != actual });
+                vm.polls = $filter('filter')(vm.polls, { id: result.id }, function (actual, expected) { return expected != actual; });
             }
 
             function failed(error) {
                 console.error(error);
             }
-        }
+        };
 
         vm.loadMore = function (dataLoaded) {
             vm.page++;

@@ -7,17 +7,23 @@
 
         <title>Chreyt.li</title>
 
+        <!-- build:css css/components.css -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
         <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
         <!-- endbower -->
+        <!-- endbuild -->
 
+        <!-- build:css css/app.css -->
         <!-- additional css -->
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/sticky-footer.css" />
         <link rel="stylesheet" href="css/custom.css" />
+        <!-- endbuild -->
     </head>
     <body>        
+        <!-- build:js js/components.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
@@ -27,12 +33,15 @@
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <!-- endbower -->
+        <!-- endbuild -->
 
         <!-- additional js -->
         <script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
+        <!-- endbuild -->
 
         <div ng-include="src='app/shell/shell.html'"></div>
 
+        <!-- build:js js/app.js -->
         <!-- app -->
         <script src="app.js"></script>
         <script src="app.config.js"></script>
@@ -49,7 +58,8 @@
         <script src="app/gaming/main.js"></script>
         <script src="app/hub/hub.js"></script>
         <script src="app/polls/poll.js"></script>   
-        <script src="app/calendar/calendar.js"></script>           
+        <script src="app/calendar/calendar.js"></script>      
+        <script src="app/profile/profile.js"></script>        
         
         <!-- services -->
         <script src="app/services/accountService.js"></script>
@@ -59,6 +69,7 @@
 
         <!-- filters -->
         <script src="app/filters/unsafe.js"></script>
+        <!-- endbuild -->
 
         <!-- Google Analytics -->
         <script>

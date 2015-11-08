@@ -10,7 +10,7 @@
                 </button>
                 <a class="navbar-brand" href="#/">
                     <span class="brand-name">Chreytli</span> <span ng-style="vm.route.style">{{vm.route.title}}</span>
-                    <h4><span class="label label-success">Beta</span></h4>
+                    <h4><span class="label label-success">Beta+</span></h4>
                 </a>
             </div>
 
@@ -21,7 +21,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-show="vm.canRegister"><a href="" data-toggle="modal" data-target="#registerModal"><i class="fa fa-pencil-square-o"></i> Register</a></li>
                     <li ng-hide="vm.account"><a href="" data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i> Login</a></li>
-                    <li ng-show="vm.account"><a href=""><i class="fa fa-user"></i> {{vm.account.username}}</a></li>
+                    <li ng-show="vm.account" ng-class="{active:vm.isActive('/profile')}" ><a href="#/profile"><i class="fa fa-user"></i> {{vm.account.username}}</a></li>
                     <li ng-show="vm.account"><a href="" ng-click="vm.logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
                 </ul>
             </div>
@@ -31,5 +31,5 @@
 
 <div class="container header-image hidden-xs"></div>
 
-<div ng-include="src='templates/dialogs/loginDialog.html'"></div>
-<div ng-include="src='templates/dialogs/registerDialog.html'"></div>
+<div ng-include="src='app/shell/loginDialog.html'"></div>
+<div ng-include="src='app/shell/registerDialog.html'"></div>
