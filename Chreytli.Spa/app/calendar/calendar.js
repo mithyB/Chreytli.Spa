@@ -129,7 +129,7 @@
 
         vm.canDelete = function () {
             var account = accountService.getAccount();
-            return vm.isInRole('Admins') || account && vm.selectedEvent.author.id == account.id;
+            return vm.isInRole('Admins') || account && vm.selectedEvent && vm.selectedEvent.author.id == account.id;
         };
 
         vm.delete = function () {

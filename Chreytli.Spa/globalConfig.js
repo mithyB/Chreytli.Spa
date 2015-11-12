@@ -1,8 +1,9 @@
 ﻿(function (moduleId, valueId, ng) {
     'use strict';
 
-    //var baseUrl = 'http://chreyt.li/Chreytli.Api/';
-    var baseUrl = 'http://localhost:53994/';
+    var baseUrl = 'http://api.chreyt.li/';
+    //var baseUrl = 'http://chreyt.li/pre-release/Chreytli.Api/';
+    //var baseUrl = 'http://localhost:53994/';
     var apiUrl = baseUrl + 'api/';
     var tokenUrl = baseUrl + 'token';
     var metaUrl = apiUrl + 'Meta/';

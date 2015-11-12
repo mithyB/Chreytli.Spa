@@ -67,7 +67,8 @@
                       src: [
                           'index.html',
                           'app/**/*.html',
-                          'images/**/*.*'
+                          'images/**/*.*',
+                          'favicon.ico'
                       ], dest: '.dist/'
                   },
                   {
@@ -120,6 +121,19 @@
             options: {
                 assetsDir: '.dist'
             }
+        },
+        
+        ftpush: {
+            build: {
+                auth: {
+                    host: 'chreyt.li',
+                    port: 21,
+                    authKey: 'Chreytli'
+                },
+                src: '.dist',
+                //dest: '/pre-release'
+                dest: '/'
+            }
         }
     });
 
@@ -134,11 +148,14 @@
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-ftpush');
 
     grunt.registerTask('default', ['wiredep', 'jshint']);
 
     grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', /*'processhtml',*/'copy', 'usemin']);
 
     grunt.registerTask('serve', ['build', 'connect']);
+
+    grunt.registerTask('deploy', ['build', 'ftpush']);
 
 };
