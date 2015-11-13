@@ -66,6 +66,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\services\paginationService.js" />
+    <Content Include="app\services\utilityService.js" />
     <Content Include="packages.config" />
     <Content Include=".ftppass" />
     <Content Include="assets\less\bootstrap.less" />

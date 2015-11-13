@@ -6,10 +6,11 @@
         '$filter',
         'globalConfig',
         'accountService',
+        'utilityService',
         controller
     ]);
 
-    function controller($resource, $filter, globalConfig, accountService) {
+    function controller($resource, $filter, globalConfig, accountService, utilityService) {
         /*jshint validthis:true */
         var vm = this;
 
@@ -36,20 +37,12 @@
             });
         });
 
-        vm.isLoggedIn = function () {
-            return (accountService.getAccount());
-        };
+        vm.isLoggedIn = utilityService.isLoggedIn;
+        vm.isInRole = utilityService.isInRole;
 
         vm.canDelete = function (poll) {
             var account = accountService.getAccount();
             return vm.isInRole('Admins') || account && poll.author.id == account.id;
-        };
-
-        vm.isInRole = function (role) {
-            var acc = accountService.getAccount();
-            if (acc && acc.roles) {
-                return acc.roles.indexOf(role) > -1;
-            }
         };
 
         vm.delete = function (poll) {
@@ -71,6 +64,7 @@
 
             var account = accountService.getAccount();
             var accountId = account ? account.id : '';
+
             Poll.query({ userId: accountId, page: vm.page, pageSize: globalConfig.pollsPageSize }).$promise.then(function (result) {
                 loadData(result, accountId);
 

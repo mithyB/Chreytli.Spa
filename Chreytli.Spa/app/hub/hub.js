@@ -11,11 +11,13 @@
         'submissionTypeService',
         'jQHubService',
         'regexService',
+        'utilityService',
+        'paginationService',
         controller
     ]);
 
     function controller($resource, $filter, $location, $scope,
-        globalConfig, accountService, submissionTypeService, jQHubService, regexService) {
+        globalConfig, accountService, submissionTypeService, jQHubService, regexService, utilityService, paginationService) {
         /*jshint validthis:true */
         var vm = this;
 
@@ -60,7 +62,7 @@
             Submission.query({ userId: accountId, page: vm.page, filter: vm.filter, pageSize: globalConfig.postsPageSize }).$promise.then(function (result) {
                 loadData(result);
 
-                if (dataLoaded) dataLoaded(result);
+                if (dataLoaded) { dataLoaded(result); }
 
                 vm.loadingMore = false;
             }, function (error) {
@@ -102,16 +104,8 @@
         };
         vm.newSubmission.tag = 0;
 
-        vm.isLoggedIn = function () {
-            return (accountService.getAccount());
-        };
-
-        vm.isInRole = function (role) {
-            var acc = accountService.getAccount();
-            if (acc && acc.roles) {
-                return acc.roles.indexOf(role) > -1;
-            }
-        };
+        vm.isLoggedIn = utilityService.isLoggedIn;
+        vm.isInRole = utilityService.isInRole;
 
         vm.canDelete = function (submission) {
             var account = accountService.getAccount();
@@ -165,7 +159,7 @@
                 content.empty();
             });
 
-            modal.data('post-id', submission.id);
+            modal.data('submission-id', submission.id);
             content.empty();
             content.append(submissionTypeService.getMediaElement(submission));
 
