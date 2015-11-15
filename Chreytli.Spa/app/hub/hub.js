@@ -12,19 +12,17 @@
         'jQHubService',
         'regexService',
         'utilityService',
-        'paginationService',
         controller
     ]);
 
     function controller($resource, $filter, $location, $scope,
-        globalConfig, accountService, submissionTypeService, jQHubService, regexService, utilityService, paginationService) {
+        globalConfig, accountService, submissionTypeService, jQHubService, regexService, utilityService) {
         /*jshint validthis:true */
         var vm = this;
 
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
             'query': { method: 'GET', isArray: true },
             'create': { method: 'POST', headers: { authorization: localStorage.getItem('access_token') } },
-            //'update': { method: 'PUT', headers: { authorization: localStorage.getItem('access_token') } },
             'delete': { method: 'DELETE', params: { id: '@id' }, headers: { authorization: localStorage.getItem('access_token') } },
             'favorite': {
                 method: 'POST', url: globalConfig.apiUrl + 'Submissions/:id/Favorite', params: { id: '@id' },
