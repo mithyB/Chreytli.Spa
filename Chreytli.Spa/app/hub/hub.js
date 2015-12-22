@@ -12,12 +12,11 @@
         'jQHubService',
         'regexService',
         'utilityService',
-        'paginationService',
         controller
     ]);
 
     function controller($resource, $filter, $location, $scope,
-        globalConfig, accountService, submissionTypeService, jQHubService, regexService, utilityService, paginationService) {
+        globalConfig, accountService, submissionTypeService, jQHubService, regexService, utilityService) {
         /*jshint validthis:true */
         var vm = this;
 

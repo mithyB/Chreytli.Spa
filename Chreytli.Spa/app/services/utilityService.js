@@ -2,10 +2,11 @@
     'use strict';
 
     ng.module(moduleId).service(serviceId, [
+        'accountService',
         service
     ]);
 
-    function service() {
+    function service(accountService) {
 
         function isLoggedIn() {
             return (accountService.getAccount());

@@ -79,7 +79,7 @@
                 }
             }).success(function (result) {
                 delete vm.registerError;
-                vm.login();
+                // vm.login();
                 $('#registerModal').modal('hide');
             }).error(function (error, message) {
                 vm.registerError = 'An error occured';
