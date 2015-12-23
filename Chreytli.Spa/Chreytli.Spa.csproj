@@ -71,6 +71,7 @@
     <Content Include="app\directives\mediaElement.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\services\utilityService.js" />
+    <Content Include="css\animate.css" />
     <Content Include="packages.config" />
     <Content Include=".ftppass" />
     <Content Include="assets\less\bootstrap.less" />

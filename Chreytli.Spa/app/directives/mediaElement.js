@@ -24,11 +24,12 @@
             controller: directiveId,
             controllerAs: 'vm',
             templateUrl: 'app/directives/mediaElement.html'
-        }
+        };
     }
 
     function controller($scope, $location, $resource, $filter,
         globalConfig, submissionTypeService, accountService, utilityService) {
+        /*jshint validthis:true */
         var vm = this;
 
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
