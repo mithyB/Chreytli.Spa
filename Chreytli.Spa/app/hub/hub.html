@@ -20,29 +20,7 @@
         </div>
     </div>
 
-    <div ng-repeat="submission in vm.submissions" class="col-md-3 col-sm-4 col-xs-6 media-element" id="{{submission.id}}">
-        <div class="media-element-thumbnail">
-            <div class="image" ng-style="{'background-image': 'url(' + submission.img + ')'}"></div>
-            <i class="fa enlarge" ng-class="vm.getTypeSetting(submission.type, 'enlargementIcon')" ng-click="vm.enlarge(submission)"></i>
-        </div>
-        <span class="media-element-badge" ng-style="vm.getTypeSetting(submission.type, 'style')">
-            <i class="fa" ng-class="vm.getTypeSetting(submission.type, 'badgeIcon')"></i> {{vm.getTypeSetting(submission.type, 'title')}}
-        </span>
-
-        <div class="media-element-body">
-            <div><i class="fa fa-user"></i> {{submission.author.userName}}</div>
-            <div><i class="fa fa-clock-o"></i> {{submission.date.fromNow()}}</div>
-            <div>
-                <a href="" class="favorite-icon" ng-click="vm.favorite(submission)" tabindex="-1">
-                    {{submission.score}}
-                    <i class="fa fa-heart" ng-class="{'favorite':submission.isFavorite}"></i>
-                </a>
-            </div>
-            <a class="media-element-delete" ng-show="vm.canDelete(submission)" href="" ng-click="vm.delete(submission)">
-                <i class="fa fa-times"></i>
-            </a>
-        </div>
-    </div>
+    <media-element ng-repeat="submission in vm.submissions" submission="submission" on-delete="vm.onSubmissionDelete(submission)"></media-element>
 
     <div class="col-md-12 col-sm-12 col-xs-12">
         <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"

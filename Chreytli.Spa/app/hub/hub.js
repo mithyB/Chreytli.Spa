@@ -22,13 +22,7 @@
 
         var Submission = $resource(globalConfig.apiUrl + 'Submissions/:id', {}, {
             'query': { method: 'GET', isArray: true },
-            'create': { method: 'POST', headers: { authorization: localStorage.getItem('access_token') } },
-            //'update': { method: 'PUT', headers: { authorization: localStorage.getItem('access_token') } },
-            'delete': { method: 'DELETE', params: { id: '@id' }, headers: { authorization: localStorage.getItem('access_token') } },
-            'favorite': {
-                method: 'POST', url: globalConfig.apiUrl + 'Submissions/:id/Favorite', params: { id: '@id' },
-                headers: { authorization: localStorage.getItem('access_token') }
-            }
+            'create': { method: 'POST', headers: { authorization: localStorage.getItem('access_token') } }
         });
 
         accountService.onAccountLoaded(function (account) {
@@ -106,13 +100,8 @@
         vm.isLoggedIn = utilityService.isLoggedIn;
         vm.isInRole = utilityService.isInRole;
 
-        vm.canDelete = function (submission) {
-            var account = accountService.getAccount();
-            return vm.isInRole('Admins') || account && submission.author.id == account.id;
-        };
-
-        vm.getTypeSetting = function (type, setting) {
-            return submissionTypeService.getSetting(type, setting);
+        vm.onSubmissionDelete = function (submissions) {
+            vm.submissions = $filter('filter')(vm.submissions, { id: submissions.id }, function (actual, expected) { return expected != actual; });
         };
 
         vm.selectType = function (type) {
@@ -147,61 +136,6 @@
 
         vm.isActiveFilter = function (filter) {
             return vm.filter.indexOf(filter) > -1;
-        };
-
-        function enlarge(submission) {
-            var modal = $('#mediaModal');
-            var content = modal.find('.modal-content');
-            var media;
-
-            $('#mediaModal').on('hidden.bs.modal', function () {
-                content.empty();
-            });
-
-            modal.data('submission-id', submission.id);
-            content.empty();
-            content.append(submissionTypeService.getMediaElement(submission));
-
-            modal.modal('show');
-        }
-
-        vm.enlarge = function (submission) {
-            $location.search({ s: submission.id });
-            enlarge(submission);
-        };
-
-        vm.favorite = function (submission) {
-            function success(result) {
-
-            }
-
-            function failed(error) {
-                console.error(error);
-            }
-
-            var account = accountService.getAccount();
-            if (account) {
-                submission.isFavorite = !submission.isFavorite;
-                submission.score += submission.isFavorite ? 1 : -1;
-
-                var s = new Submission(submission);
-                s.$favorite({ userId: account.id }).then(success, failed);
-            } else {
-                alert('You are not logged in. Please log in or register if you haven\'t already.');
-            }
-        };
-
-        vm.delete = function (submission) {
-            var s = new Submission(submission);
-            s.$delete().then(success, failed);
-
-            function success(result) {
-                vm.submissions = $filter('filter')(vm.submissions, { id: result.id }, function (actual, expected) { return expected != actual; });
-            }
-
-            function failed(error) {
-                console.error(error);
-            }
         };
 
         vm.submit = function () {

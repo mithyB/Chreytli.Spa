@@ -5,6 +5,22 @@
         {
             url: '/',
             config: {
+                templateUrl: 'app/home/home.html',
+                reloadOnSearch: false,
+                settings: { }
+            }
+        },
+        {
+            url: '/about',
+            config: {
+                templateUrl: 'app/about/about.html',
+                reloadOnSearch: false,
+                settings: {}
+            }
+        },
+        {
+            url: '/hub',
+            config: {
                 controller: 'hub as vm',
                 templateUrl: 'app/hub/hub.html',
                 reloadOnSearch: false,
@@ -69,7 +85,7 @@
                 settings: {
                     title: 'You',
                     style: {
-                        color: "black"
+                        color: "#ccc"
                     },
                     showNav: false
                 }

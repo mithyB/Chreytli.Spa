@@ -66,6 +66,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\about\about.html" />
+    <Content Include="app\directives\mediaElement.html" />
+    <Content Include="app\directives\mediaElement.js" />
+    <Content Include="app\home\home.html" />
     <Content Include="app\services\utilityService.js" />
     <Content Include="packages.config" />
     <Content Include=".ftppass" />
@@ -229,6 +233,8 @@
     <Content Include="bower_components\moment\LICENSE" />
     <Content Include="bower_components\moment\README.md" />
     <Content Include="package.json" />
+    <Content Include="assets\less\variables.less" />
+    <Content Include="assets\less\sticky-footer.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -719,8 +725,6 @@
     <Content Include="bower_components\moment\templates\test-header.js" />
     <Content Include="components\customContextMenu.js" />
     <Content Include="css\custom.css" />
-    <Content Include="css\sticky-footer.css" />
-    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="globalConfig.js" />
     <Content Include="Gruntfile.js" />

@@ -1,4 +1,6 @@
-﻿/* Sticky footer styles
+﻿@import "variables.less";
+
+/* Sticky footer styles
 -------------------------------------------------- */
 html {
   position: relative;
@@ -15,9 +17,15 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 50px;
-  background-color: forestgreen;
+  background-color: @brand-primary;
 }
 
-.footer > .container > p {
-    margin: 15px 0;
+.footer > .container { 
+    p {
+        margin: 15px 0;
+    }
+
+    a {        
+        color: white;
+    }
 }

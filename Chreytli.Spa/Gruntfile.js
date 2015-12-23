@@ -21,7 +21,7 @@
         less: {
             build: {
                 files: {
-                    '.dist/css/style.css': '**/*.css'
+                    'css/bootstrap.css': 'assets/less/*.less'
                 }
             }
         },

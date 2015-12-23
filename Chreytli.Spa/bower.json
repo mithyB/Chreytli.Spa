@@ -13,14 +13,6 @@
     "test",
     "tests"
   ],
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
-  },
   "dependencies": {
     "jquery": "~2.1.4",
     "angular": "~1.4.1",
