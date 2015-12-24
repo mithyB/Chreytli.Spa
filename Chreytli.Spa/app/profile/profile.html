@@ -9,7 +9,7 @@
                 Joined <b>{{vm.profile.createDate.fromNow()}}</b>
             </p>
         </div>
-        
+
         <div class="row">
             <div class="col-sm-6">
                 <div class="input-group">
@@ -50,6 +50,33 @@
         </div>
 
         <h3>Your favorites</h3>
-        Coming soon<sup>TM</sup>
-    </div>    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" ng-show="vm.isLoggedIn()">
+                    <button type="button" class="btn btn-default" tabindex="-1"
+                            ng-class="{'active':vm.isActiveFilter('sfw')}" ng-click="vm.selectFilter('sfw', $event)">
+                        SFW
+                    </button>
+                    <button type="button" class="btn btn-default" tabindex="-1"
+                            ng-class="{'active':vm.isActiveFilter('nsfw')}" ng-click="vm.selectFilter('nsfw', $event)">
+                        NSFW
+                    </button>
+                    <button type="button" class="btn btn-default" tabindex="-1"
+                            ng-class="{'active':vm.isActiveFilter('nsfl')}" ng-click="vm.selectFilter('nsfl', $event)">
+                        NSFL
+                    </button>
+                </div>
+            </div>
+
+            <media-element ng-repeat="favorite in vm.favorites" submission="favorite" on-delete="vm.onSubmissionDelete(favorite)"></media-element>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"
+                   class="load-more-bar col-md-12 col-sm-12 col-xs-12">
+                    <span ng-show="vm.loadingMore" class="fa fa-circle-o-notch fa-spin"></span>
+                    Load more...
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

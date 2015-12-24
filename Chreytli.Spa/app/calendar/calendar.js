@@ -27,6 +27,9 @@
         var events = Event.query(function () {
             ng.forEach(events, function (x) {
                 x.date = moment(x.date);
+                if (x.description) {
+                    x.description = marked(x.description);
+                }
             });
 
             eventSource.events = events;

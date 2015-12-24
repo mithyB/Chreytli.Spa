@@ -68,7 +68,7 @@
         function loadData(result) {
             vm.isMoreDataAvailable = result.length == globalConfig.postsPageSize;
             ng.forEach(result, function (x) {
-                var hasHostedThumbnail = x.img.indexOf('http') !== 0;
+                var hasHostedThumbnail = result.img && x.img.indexOf('http') !== 0;
 
                 x.date = moment(moment.utc(x.date).toDate()); // utc to local
                 x.img = (x.isHosted || hasHostedThumbnail ? globalConfig.baseUrl : '') + x.img;

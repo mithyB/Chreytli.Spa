@@ -15,43 +15,35 @@
                                type="text" class="form-control" id="inputUrl" placeholder="Enter URL...">
                     </div>
 
-                    <!--
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default btn-lg"
-                    ng-class="{'active':vm.isActiveType('image')}" ng-click="vm.selectType('image')">
-                <img src="../../images/upload.png" />
-            </button>
-            <button type="button" class="btn btn-default btn-lg"
-                    ng-class="{'active':vm.isActiveType('youtube')}" ng-click="vm.selectType('youtube')">
-                <img src="../../images/youtube.png" />
-            </button>
-            <button type="button" class="btn btn-default btn-lg"
-                    ng-class="{'active':vm.isActiveType('spotify')}" ng-click="vm.selectType('spotify')">
-                <img src="../../images/spotify.png" />
-            </button>
-        </div>
-            -->
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href=""><i class="fa fa-upload"></i> Upload from local file system</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-cloud-upload"></i> Image or WebM from the web</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-youtube"></i> YouTube video URL</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-spotify"></i> Spotify URI</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-reddit-square"></i> Reddit link</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-soundcloud"></i> Soundcloud link</a>
-                        </li>
-                    </ul>
+                    <div class="btn-group type-selection" data-toggle="buttons">
+                        <!--
+                        <label class="btn btn-default disabled">
+                            <input type="radio" name="submissionType" id="file" autocomplete="off" disabled> <i class="fa fa-3x fa-upload"></i>
+                        </label>
+                        -->
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('image')}" >
+                            <input type="radio" name="submissionType" id="web" autocomplete="off" checked
+                                   ng-click="vm.selectType('image')"> <i class="fa fa-3x fa-cloud-upload"></i>
+                        </label>
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('youtube')}" >
+                            <input type="radio" name="submissionType" id="youtube" autocomplete="off"
+                                   ng-click="vm.selectType('youtube')"> <i class="fa fa-3x fa-youtube"></i>
+                        </label>
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('spotify')}">
+                            <input type="radio" name="submissionType" id="file" autocomplete="off"
+                                   ng-click="vm.selectType('spotify')"> <i class="fa fa-3x fa-spotify"></i>
+                        </label>
+                        <!--
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('reddit')}">
+                            <input type="radio" name="submissionType" id="reddit" autocomplete="off"
+                                   ng-click="vm.selectType('reddit')"> <i class="fa fa-3x fa-reddit-square"></i>
+                        </label>
+                        -->
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('soundcloud')}">
+                            <input type="radio" name="submissionType" id="soundcloud" autocomplete="off"
+                                   ng-click="vm.selectType('soundcloud')"> <i class="fa fa-3x fa-soundcloud"></i>
+                        </label>
+                    </div>
 
                     <div class="col-lg-12"></div>
                     <br />

@@ -70,6 +70,31 @@
                         controls: true
                     });
                 }
+            },
+            4: {
+                title: 'Reddit', // TODO
+                enlargementIcon: 'fa-reddit',
+                badgeIcon: 'fa-reddit-square',
+                style: { background: '#ff5500', color: 'white' },
+                getMediaElement: function (submission) {
+                    return $('<video>', {
+                        id: 'mediaModal-image',
+                        src: submission.url,
+                        class: 'img-responsive',
+                        autoplay: true,
+                        loop: true,
+                        controls: true
+                    });
+                }
+            },
+            5: {
+                title: 'SoundCloud',
+                enlargementIcon: 'fa-soundcloud',
+                badgeIcon: 'fa-soundcloud',
+                style: { background: '#ff5500', color: 'white' },
+                getMediaElement: function (submission) {
+                    return submission.url;
+                }
             }
         };
 
@@ -78,7 +103,9 @@
                 image: 0,
                 youtube: 1,
                 spotify: 2,
-                video: 3
+                video: 3,
+                reddit: 4,
+                soundcloud: 5
             },
 
             initialize: function (submission, url, callback) {
@@ -106,6 +133,22 @@
                     case this.SubmissionTypes.video:
                         submission.url = url;
                         callback(submission);
+                        break;
+                    case this.SubmissionTypes.reddit: // TODO
+                        submission.url = url;
+                        callback(submission);
+                        break;
+                    case this.SubmissionTypes.soundcloud:
+                        $http.post('http://soundcloud.com/oembed', {
+                            url: submission.url,
+                            format: 'json'
+                        }).success(function (result) {
+                            submission.img = result.thumbnail_url;
+                            submission.url = result.html;
+                            callback(submission);
+                        }).error(function (error) {
+                            callback(submission);
+                        });
                         break;
                 }
             },

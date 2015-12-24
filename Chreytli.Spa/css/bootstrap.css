@@ -6934,6 +6934,37 @@ h6 {
   width: 100%;
   background-size: cover;
 }
+/* FAME ITEM */
+.fame-item .fame-item-icon-gold {
+  color: gold;
+}
+.fame-item .fame-item-icon-silver {
+  color: silver;
+}
+.fame-item .fame-item-icon-bronze {
+  color: sandybrown;
+}
+.fame-item .fame-item-rank {
+  color: white;
+  font-size: 1.8em;
+  font-family: "Lobster", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: absolute;
+  top: 11px;
+  left: 35px;
+}
+.type-selection .btn-default {
+  border-color: white;
+}
+.type-selection .btn-default.active:hover {
+  border-color: white;
+  color: #1ea55b;
+}
+.type-selection .active {
+  box-shadow: none;
+  border-color: white;
+  background-color: white;
+  color: #1ea55b;
+}
 
 @import url(https://fonts.googleapis.com/css?family=Poiret+One|Lobster|Exo|Parisienne|Oleo+Script+Swash+Caps|Londrina+Shadow|Montserrat+Subrayada|Nova+Flat|Akronim|Londrina+Outline);
 @import url(http://fonts.googleapis.com/css?family=Dosis|Quicksand|Kaushan+Script|Courgette|Playball);
