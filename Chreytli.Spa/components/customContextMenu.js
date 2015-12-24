@@ -37,7 +37,8 @@ customContextMenu = (function() {
                     .addClass('list-group-item')
                     .css({
                         'border': '0 solid transparent',
-                        'padding': '10px'
+                        'padding': '10px',
+                        'background': 'white'
                     })
                     .html(x.html)
                     .on('click', function() { $click(x.key); })

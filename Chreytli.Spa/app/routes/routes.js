@@ -91,6 +91,14 @@
                 }
             }
 
+        },
+        {
+            url: '/donate',
+            config: {
+                templateUrl: 'app/donate/donate.html',
+                settings: { }
+            }
+
         }
     ];
 

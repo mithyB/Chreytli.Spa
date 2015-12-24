@@ -6792,6 +6792,17 @@ body {
   position: fixed;
 }
 /* keep this the last import */
+html {
+  overflow-y: scroll;
+}
+.theme-switch {
+  border-left: 10px solid #333333;
+  padding-left: 3px;
+}
+.theme-switch:hover,
+.theme-switch:active {
+  color: #efefef;
+}
 /* Custom Bootstrap */
 .navbar-brand {
   font-family: "Lobster", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -6965,34 +6976,3 @@ h6 {
   background-color: white;
   color: #1ea55b;
 }
-
-@import url(https://fonts.googleapis.com/css?family=Poiret+One|Lobster|Exo|Parisienne|Oleo+Script+Swash+Caps|Londrina+Shadow|Montserrat+Subrayada|Nova+Flat|Akronim|Londrina+Outline);
-@import url(http://fonts.googleapis.com/css?family=Dosis|Quicksand|Kaushan+Script|Courgette|Playball);
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 50px;
-}
-.footer {
-  color: white;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 50px;
-  background-color: #1ea55b;
-}
-.footer > .container p {
-  margin: 15px 0;
-}
-.footer > .container a {
-  color: white;
-}
-
-@import url(https://fonts.googleapis.com/css?family=Poiret+One|Lobster|Exo|Parisienne|Oleo+Script+Swash+Caps|Londrina+Shadow|Montserrat+Subrayada|Nova+Flat|Akronim|Londrina+Outline);
-@import url(http://fonts.googleapis.com/css?family=Dosis|Quicksand|Kaushan+Script|Courgette|Playball);

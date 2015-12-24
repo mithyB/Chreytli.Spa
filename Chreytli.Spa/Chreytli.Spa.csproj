@@ -72,10 +72,10 @@
     <Content Include="app\calendar\showEventModal.html" />
     <Content Include="app\directives\mediaElement.html" />
     <Content Include="app\directives\mediaElement.js" />
+    <Content Include="app\donate\donate.html" />
     <Content Include="app\home\home.html" />
     <Content Include="app\polls\newPollModal.html" />
     <Content Include="app\services\utilityService.js" />
-    <Content Include="css\animate.css" />
     <Content Include="packages.config" />
     <Content Include=".ftppass" />
     <Content Include="assets\less\bootstrap.less" />
@@ -240,6 +240,8 @@
     <Content Include="package.json" />
     <Content Include="assets\less\variables.less" />
     <Content Include="assets\less\sticky-footer.less" />
+    <Content Include="assets\less\bootstrap.dark.less" />
+    <None Include="assets\less\variables.dark.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

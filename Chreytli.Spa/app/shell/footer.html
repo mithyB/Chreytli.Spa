@@ -2,8 +2,13 @@
     <div class="footer">
         <div class="container">
             <p>
-                Copyright &copy; Chreytli 2015 <span class="pull-right"><a href="#/about">About</a></span>
-            </p>            
+                Copyright &copy; Chreytli 2015
+                <span class="pull-right">
+                    <a class="theme-switch" href="" ng-click="vm.theme.switch()">{{vm.theme.display}}</a>
+                    &nbsp; | &nbsp;
+                    <a href="#/about">About</a>
+                </span>
+            </p>
         </div>
     </div>
 </div>

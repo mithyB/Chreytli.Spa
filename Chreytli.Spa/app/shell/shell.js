@@ -16,6 +16,24 @@
         /*jshint validthis:true */
         var vm = this;
 
+        vm.theme = {
+            switch: function () {
+                if (this.id === 0) {
+                    this.id = 1;
+                    this.display = 'Light mode';
+                    this.style = 'css/bootstrap.dark.css';
+                } else {
+                    this.id = 0;
+                    this.display = 'Dark mode';
+                    this.style = 'css/bootstrap.css';
+                }
+                document.getElementById("themeStyle").href = this.style;
+            },
+            id: 0
+        };
+
+        vm.theme.switch();
+
         vm.isActive = function(route) {
             return route === $location.path();
         };

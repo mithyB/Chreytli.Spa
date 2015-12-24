@@ -21,7 +21,8 @@
         less: {
             build: {
                 files: {
-                    'css/bootstrap.css': 'assets/less/*.less'
+                    'css/bootstrap.css': 'assets/less/bootstrap.less',
+                    'css/bootstrap.dark.css': 'assets/less/bootstrap.dark.less'
                 }
             }
         },
@@ -68,6 +69,7 @@
                           'index.html',
                           'app/**/*.html',
                           'images/**/*.*',
+                          'css/*.css',
                           'favicon.ico'
                       ], dest: '.dist/'
                   },
@@ -152,7 +154,7 @@
 
     grunt.registerTask('default', ['wiredep', 'jshint']);
 
-    grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', /*'processhtml',*/'copy', 'usemin']);
+    grunt.registerTask('build', ['default', 'useminPrepare', 'less', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy', 'usemin']);
 
     grunt.registerTask('serve', ['build', 'connect']);
 
