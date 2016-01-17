@@ -26,7 +26,7 @@
                 title: 'YouTube',
                 enlargementIcon: 'fa-youtube-play',
                 badgeIcon: 'fa-youtube-play',
-                style: { background: 'red', color: 'white' },
+                style: { background: '#cc181e', color: 'white' },
                 // <iframe src='http://www.youtube.com/embed/QILiHiTD3uc?autoplay=1' frameborder='0' allowfullscreen></iframe>
                 getMediaElement: function (submission) {
                     return $('<iframe>', {
@@ -43,7 +43,7 @@
                 title: 'Spotify',
                 enlargementIcon: 'fa-play',
                 badgeIcon: 'fa-spotify',
-                style: { background: 'limegreen', color: 'white' },
+                style: { background: '#2ebd59', color: 'white' },
                 // <iframe src="https://embed.spotify.com/?uri=spotify:track:4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                 getMediaElement: function (submission) {
                     return $('<iframe>', {
@@ -91,7 +91,7 @@
                 title: 'SoundCloud',
                 enlargementIcon: 'fa-soundcloud',
                 badgeIcon: 'fa-soundcloud',
-                style: { background: '#ff5500', color: 'white' },
+                style: { background: '#f50', color: 'white' },
                 getMediaElement: function (submission) {
                     return submission.url;
                 }
