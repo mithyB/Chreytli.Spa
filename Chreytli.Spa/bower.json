@@ -18,10 +18,10 @@
     "angular": "~1.4.1",
     "angular-route": "~1.4.1",
     "bootstrap": "~3.3.5",
-    "fontawesome": "~4.3.0",
     "moment": "~2.10.6",
     "angular-resource": "~1.4.1",
     "fullcalendar": "~2.3.2",
-    "marked": "~0.3.5"
+    "marked": "~0.3.5",
+    "font-awesome": "fontawesome#~4.5.0"
   }
 }

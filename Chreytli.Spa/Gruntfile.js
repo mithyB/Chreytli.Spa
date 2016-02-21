@@ -22,7 +22,8 @@
             build: {
                 files: {
                     'css/bootstrap.css': 'assets/less/bootstrap.less',
-                    'css/bootstrap.dark.css': 'assets/less/bootstrap.dark.less'
+                    'css/bootstrap.dark.css': 'assets/less/bootstrap.dark.less',
+                    'css/fontawesome.css': 'bower_components/font-awesome/less/font-awesome.less'
                 }
             }
         },
@@ -61,7 +62,7 @@
         //},
 
         copy: {
-            main: {
+            dist: {
                 files: [
                   {
                       expand: true,
@@ -81,15 +82,25 @@
                       src: ['fonts/*.*'],
                       dest: '.dist'
                   }, {
-
                       //for font-awesome
                       expand: true,
                       dot: true,
-                      cwd: 'bower_components/fontawesome',
+                      cwd: 'bower_components/font-awesome',
                       src: ['fonts/*.*'],
                       dest: '.dist'
                   }
                 ],
+            },
+            dev: {
+                files: [
+                    {
+                        //for font-awesome
+                        expand: true,
+                        dot: true,
+                        cwd: 'bower_components/font-awesome',
+                        src: ['fonts/*.*']
+                    }
+                ]
             }
         },
 
@@ -152,9 +163,9 @@
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-ftpush');
 
-    grunt.registerTask('default', ['wiredep', 'jshint']);
+    grunt.registerTask('default', ['wiredep', 'jshint', 'copy:dev']);
 
-    grunt.registerTask('build', ['default', 'useminPrepare', 'less', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy', 'usemin']);
+    grunt.registerTask('build', ['default', 'useminPrepare', 'less', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:dist', 'usemin']);
 
     grunt.registerTask('serve', ['build', 'connect']);
 

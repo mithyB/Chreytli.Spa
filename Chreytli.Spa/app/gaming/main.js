@@ -12,6 +12,24 @@
 
         vm.hallOfFame = [
             {
+                rank: 1,
+                userName: 'Emotionerror',
+                game: 'League of Legends 1v1',
+                place: 'Des Führers Next Reichsstratege'
+            },
+            {
+                rank: 2,
+                userName: 'ZeMooX',
+                game: 'League of Legends 1v1',
+                place: 'Des Führers Next Reichsstratege'
+            },
+            {
+                rank: 3,
+                userName: 'Hirschkönig',
+                game: 'League of Legends 1v1',
+                place: 'Des Führers Next Reichsstratege'
+            },
+            {
                 rank: 2,
                 userName: 'Command_BAum',
                 game: 'Exploding Kittens',

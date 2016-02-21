@@ -70,6 +70,10 @@
     <Content Include="app\calendar\editEventModal.html" />
     <Content Include="app\calendar\newEventModal.html" />
     <Content Include="app\calendar\showEventModal.html" />
+    <Content Include="app\console\editServerDialog.html" />
+    <Content Include="app\console\console.html" />
+    <Content Include="app\console\console.js" />
+    <Content Include="app\console\addServerDialog.html" />
     <Content Include="app\directives\mediaElement.html" />
     <Content Include="app\directives\mediaElement.js" />
     <Content Include="app\donate\donate.html" />

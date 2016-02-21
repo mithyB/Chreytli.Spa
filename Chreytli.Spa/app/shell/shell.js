@@ -27,7 +27,7 @@
                 }
             },
             set: function(id) {
-                if (id == 0) {
+                if (id === 0) {
                     this.id = 0;
                     this.display = 'Dark mode';
                     this.style = 'css/bootstrap.css';
@@ -41,7 +41,7 @@
             id: 0
         };
 
-        vm.theme.set(localStorage.getItem('theme_id'));
+        vm.theme.set(parseInt(localStorage.getItem('theme_id')));
 
         vm.isActive = function(route) {
             return route === $location.path();

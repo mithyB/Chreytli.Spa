@@ -78,6 +78,30 @@
 
         },
         {
+            config: {
+                settings: {
+                    title: 'League',
+                    showNav: true,
+                    externalUrl: 'http://league.chreyt.li',
+                }
+            }
+
+        },
+        {
+            url: '/console',
+            config: {
+                controller: 'console as vm',
+                templateUrl: 'app/console/console.html',
+                settings: {
+                    title: 'Console',
+                    style: {
+                        color: "magenta"
+                    }
+                }
+            }
+
+        },
+        {
             url: '/profile',
             config: {
                 controller: 'profile as vm',
