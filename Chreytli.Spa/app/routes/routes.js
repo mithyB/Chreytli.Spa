@@ -80,9 +80,9 @@
         {
             config: {
                 settings: {
-                    title: 'League',
+                    title: 'Radio',
                     showNav: true,
-                    externalUrl: 'http://league.chreyt.li',
+                    externalUrl: 'http://fm.chreyt.li',
                 }
             }
 

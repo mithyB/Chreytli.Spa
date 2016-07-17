@@ -735,7 +735,6 @@
     <Content Include="bower_components\moment\templates\locale-header.js" />
     <Content Include="bower_components\moment\templates\test-header.js" />
     <Content Include="components\customContextMenu.js" />
-    <Content Include="css\custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="globalConfig.js" />
     <Content Include="Gruntfile.js" />
@@ -748,6 +747,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
