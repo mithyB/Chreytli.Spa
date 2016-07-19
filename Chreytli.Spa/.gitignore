@@ -1,8 +1,0 @@
-/node_modules
-/bower_components
-.vs
-App_Data
-
-.ftppass
-*.suo
-website.publishproj

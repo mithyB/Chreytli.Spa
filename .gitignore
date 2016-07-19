@@ -1,13 +1,5 @@
-﻿################################################################################
-# Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
-################################################################################
-
-/packages
-/Chreytli.Spa/obj/Debug
-/Chreytli.Spa/.tmp/concat
-/Chreytli.Spa/.grunt/ftpush
-/Chreytli.Spa/.dist
-/Chreytli.Spa/bin
-/.vs
-*.user
-*.log
+/node_modules
+/bower_components
+.tmp
+.dist
+.ftppass
