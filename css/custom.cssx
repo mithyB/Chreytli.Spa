@@ -1,0 +1,207 @@
+﻿.full-content-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    color: white;
+}
+.full-content-overlay > .error {
+    padding: 10px;
+}
+.full-content-overlay > .loading {
+    width: 100%;
+    text-align: center;
+    font-size: 48px;
+    position: absolute;
+    top: 40%;
+}
+
+.load-more-bar {
+    width: 100%;
+    background: #555;
+    text-align: center;
+    color: #eee;
+    padding: 4px;
+}
+.load-more-bar:hover,
+.load-more-bar:active {
+    color: #fff;
+}
+
+.brand-name {
+    color: white;
+}
+
+.header-image {
+    background-image: url('../images/banner.png');
+    height: 200px;
+    width: 100%;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+}
+
+.media-element {
+    border: 0px solid #fff;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.media-element > .media-element-body {
+    padding: 10px;
+}
+
+.media-element-badge {
+    background: lightgray;
+    color: black;
+    padding: 2px 5px;
+    /*
+    position: absolute;
+    right: 0;
+    top: 24px;
+    */
+    font-size:1em;
+    display:block;
+    width:100%;
+}
+
+.media-element-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    opacity: 1;
+    -webkit-transition: all 420ms;
+    transition: all 420ms;
+}
+
+.media-element-thumbnail:hover {
+    opacity: 0.5;
+}
+
+.media-element-thumbnail > .enlarge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    height:100%;
+    width:100%;
+    text-align: center;
+    line-height: 160px;
+    font-size: 64px;
+    color: white;
+    -webkit-transition: all 420ms;
+    transition: all 420ms;
+    cursor: pointer;
+    text-shadow: -1px 0px 25px rgba(0, 0, 0, 1);
+}
+
+.media-element-thumbnail > .enlarge:hover {
+    opacity: 0.8;
+}
+
+.media-element-thumbnail > img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.media-element-thumbnail > img.portrait {
+    width: 100%;
+    height: auto;
+}
+
+.media-element-delete {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    font-size: 16px;
+    color: rgba(0,0,0,0.4);
+}
+
+.media-element-delete:hover {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+
+#mediaModal .modal-content {
+    background: black;
+    padding: 5px;
+}
+
+#mediaModal-image {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.favorite-icon {
+    position: absolute;
+    right: 14px;
+    font-size: 24px;
+    bottom: 4px;
+    color: #bbb;
+    text-decoration: none;
+}
+
+.favorite-icon:hover {
+    color: #888;
+}
+
+.favorite-icon > .favorite {
+    color: crimson;
+}
+
+.media-element-thumbnail > .image {
+    display: inline-block;
+    border: 0 solid transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+
+.fullCalendar-event {
+    border-radius: 0;
+    border-left: 6px solid green;
+    background-color: mediumseagreen;
+    color: black;
+    font-size: 1.05em;
+}
+
+/*html {
+    overflow-y: scroll
+}*/
+
+
+/* BOOTSTRAP CUSTOMIZATIONS */
+
+.navbar-brand, h1, h2, h3 {
+    font-family: "Lobster", "Poiret One";
+    font-size: 36px;
+}
+
+.navbar-brand {
+    width: 295px;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    background-color: transparent;
+    color: forestgreen;
+    border-bottom: 4px solid forestgreen;
+}
+
+.navbar-default .navbar-nav > li > a {
+    font-size: 1.2em;
+    font-weight: lighter;
+}

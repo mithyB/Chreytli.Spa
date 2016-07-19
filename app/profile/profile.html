@@ -1,0 +1,82 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h3>Your profile</h3>
+        <div>
+            <p>
+                Username: <b>{{vm.profile.username}}</b>
+            </p>
+            <p>
+                Joined <b>{{vm.profile.createDate.fromNow()}}</b>
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="vm.profile.email">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="vm.updateEmail()">Update</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <h4>Change password</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <form>
+                    <div class="form-group">
+                        <label for="inputOldPassword">Current password</label>
+                        <input type="password" class="form-control" id="inputOldPassword" placeholder="Current password" ng-model="vm.updatedPassword.oldPassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">New password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="New password" ng-model="vm.updatedPassword.newPassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputConfirmPassword">Confirm password</label>
+                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" ng-model="vm.updatedPassword.confirmPassword">
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-click="vm.changePassword()">Save</button>
+                </form>
+
+                <br />
+
+                <div class="alert alert-success" role="alert" ng-show="vm.successMessage">
+                    {{vm.successMessage}}
+                </div>
+            </div>
+
+        </div>
+
+        <h3>Your favorites</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" ng-show="vm.isLoggedIn()">
+                    <button type="button" class="btn btn-default" tabindex="-1"
+                            ng-class="{'active':vm.isActiveFilter('sfw')}" ng-click="vm.selectFilter('sfw', $event)">
+                        SFW
+                    </button>
+                    <button type="button" class="btn btn-default" tabindex="-1"
+                            ng-class="{'active':vm.isActiveFilter('nsfw')}" ng-click="vm.selectFilter('nsfw', $event)">
+                        NSFW
+                    </button>
+                    <button type="button" class="btn btn-default" tabindex="-1"
+                            ng-class="{'active':vm.isActiveFilter('nsfl')}" ng-click="vm.selectFilter('nsfl', $event)">
+                        NSFL
+                    </button>
+                </div>
+            </div>
+
+            <media-element ng-repeat="favorite in vm.favorites" submission="favorite" on-delete="vm.onSubmissionDelete(favorite)"></media-element>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <a href="" ng-click="vm.loadMore()" ng-show="vm.isMoreDataAvailable"
+                   class="load-more-bar col-md-12 col-sm-12 col-xs-12">
+                    <span ng-show="vm.loadingMore" class="fa fa-circle-o-notch fa-spin"></span>
+                    Load more...
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
