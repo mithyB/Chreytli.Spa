@@ -1,0 +1,76 @@
+﻿<div id="submitModal" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">Submit</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="inputUrl">URL</label>
+                        <input ng-model="vm.newSubmission.url"
+                               type="text" class="form-control" id="inputUrl" placeholder="Enter URL...">
+                    </div>
+
+                    <div class="btn-group type-selection" data-toggle="buttons">
+                        <!--
+                        <label class="btn btn-default disabled">
+                            <input type="radio" name="submissionType" id="file" autocomplete="off" disabled> <i class="fa fa-3x fa-upload"></i>
+                        </label>
+                        -->
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('image')}" >
+                            <input type="radio" name="submissionType" id="web" autocomplete="off" checked
+                                   ng-click="vm.selectType('image')"> <i class="fa fa-3x fa-cloud-upload"></i>
+                        </label>
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('youtube')}" >
+                            <input type="radio" name="submissionType" id="youtube" autocomplete="off"
+                                   ng-click="vm.selectType('youtube')"> <i class="fa fa-3x fa-youtube"></i>
+                        </label>
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('spotify')}">
+                            <input type="radio" name="submissionType" id="file" autocomplete="off"
+                                   ng-click="vm.selectType('spotify')"> <i class="fa fa-3x fa-spotify"></i>
+                        </label>
+                        <!--
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('reddit')}">
+                            <input type="radio" name="submissionType" id="reddit" autocomplete="off"
+                                   ng-click="vm.selectType('reddit')"> <i class="fa fa-3x fa-reddit-square"></i>
+                        </label>
+                        -->
+                        <label class="btn btn-default" ng-class="{'active':vm.isActiveType('soundcloud')}">
+                            <input type="radio" name="submissionType" id="soundcloud" autocomplete="off"
+                                   ng-click="vm.selectType('soundcloud')"> <i class="fa fa-3x fa-soundcloud"></i>
+                        </label>
+                    </div>
+
+                    <div class="col-lg-12"></div>
+                    <br />
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" tabindex="-1"
+                                ng-class="{'active':vm.isActiveTag(0)}" ng-click="vm.selectTag(0, $event)">
+                            SFW
+                        </button>
+                        <button type="button" class="btn btn-default" tabindex="-1"
+                                ng-class="{'active':vm.isActiveTag(1)}" ng-click="vm.selectTag(1, $event)">
+                            NSFW
+                        </button>
+                        <button type="button" class="btn btn-default" tabindex="-1"
+                                ng-class="{'active':vm.isActiveTag(2)}" ng-click="vm.selectTag(2, $event)">
+                            NSFL
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="vm.submit()">
+                    Submit
+                    <span ng-show="vm.isSubmitting" class="fa fa-circle-o-notch fa-spin"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

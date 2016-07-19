@@ -1,0 +1,44 @@
+﻿<div class="row">
+
+    <div class="col-md-12">
+        <h1>Server Manager</h1>
+
+        <div>
+            <table class="table">
+                <tr>
+                    <th>Server name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="server in vm.servers">
+                    <td>{{server.name}}</td>
+                    <td>{{server.description}}</td>
+                    <td>{{server.status}}</td>
+                    <td>
+                        <a class="btn btn-success" ng-click="vm.startServer(server)" ng-disabled="server.status != 'Offline'">
+                            <i class="fa fa-play-circle"></i> Start
+                        </a>
+                        <a class="btn btn-danger" ng-click="vm.stopServer(server)" ng-disabled="server.status != 'Running'">
+                            <i class="fa fa-stop-circle"></i> Stop
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" ng-click="vm.openEditServer(server)">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <a class="btn btn-primary" data-target="#addModal" data-toggle="modal">
+                <i class="fa fa-server"></i> Add server
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<div ng-include="src='app/console/addServerDialog.html'"></div>
+<div ng-include="src='app/console/editServerDialog.html'"></div>
