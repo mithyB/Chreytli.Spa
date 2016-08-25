@@ -2,6 +2,7 @@
     'use strict';
 
     ng.module(moduleId).controller(controllerId, [
+        '$rootScope',
         '$location',
         '$route',
         '$scope',
@@ -12,7 +13,7 @@
         controller
     ]);
 
-    function controller($location, $route, $scope, $http, $filter, globalConfig, accountService) {
+    function controller($rootScope, $location, $route, $scope, $http, $filter, globalConfig, accountService) {
         /*jshint validthis:true */
         var vm = this;
 
@@ -37,6 +38,7 @@
                     this.style = 'css/bootstrap.dark.css';
                 }
                 document.getElementById("themeStyle").href = this.style;
+                $rootScope.$broadcast('themeChanged', id);
             },
             id: 0
         };
@@ -60,7 +62,7 @@
             }
         });
 
-        $scope.$on('$routeChangeStart', function(e, next) { 
+        $scope.$on('$routeChangeStart', function(e, next) {
             vm.route = next.settings;
         });
 
